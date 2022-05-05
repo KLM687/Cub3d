@@ -12,7 +12,7 @@
 
 NAME= Cub3d
 
-SRCS= main.c
+SRCS= main.c get_map.c parse.c
 
 OBJS			=	${addprefix srcs/,${SRCS:.c=.o}}
 
@@ -26,7 +26,7 @@ HEAD			=	-I includes -I libft -I mlx
 
 CC				=	clang
 
-CFLAGS			=	-Wall -Werror -Wextra
+CFLAGS			=	-Wall -Werror -Wextra -g3
 
 .c.o			:
 					${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}

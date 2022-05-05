@@ -48,7 +48,8 @@ SRC =	ft_atoi.c \
 		ft_substr.c	\
 		ft_free_tab.c \
 		ft_size.c \
-		get_next_line.c 
+		get_next_line.c \
+		get_next_line_utils.c 
 
 
 SRCBONUS =	ft_lstnew.c \

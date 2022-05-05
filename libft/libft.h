@@ -20,10 +20,19 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# define BUFFER_SIZE 99999
 
 //------------------------GNL-------------------------------------//
 
-char	**get_next_line(int fd);
+int		ft_strlen_gnl(const char *str, int state);
+size_t	ft_strlcpy_gnl(char *dest, const char *src, unsigned int size);
+char	*ft_strjoin_gnl(char *s1, char const *s2, int read_return);
+size_t	ft_strlcat_gnl(char *dst, const char *src, size_t size);
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len, int state);
+int		ft_check_gnl(char *memory);
+char	*ft_fill_memory_gnl(char *memory, char buf[BUFFER_SIZE + 1], int fd);
+char	*get_next_line(int fd);
+
 
 //-----------------------------------------------------------------//
 

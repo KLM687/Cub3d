@@ -6,61 +6,68 @@
 /*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 17:08:35 by flee              #+#    #+#             */
-/*   Updated: 2021/07/20 17:24:58 by flee             ###   ########.fr       */
+/*   Updated: 2021/07/20 18:39:39 by flee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "limits.h"
 
-int 	count_line(char *buf)
+int	ft_check_gnl(char *memory)
 {
-	int i;
-	int line;
+	int	i;
 
 	i = 0;
-	line = 0;
-	while (buf[i])
+	while (memory[i] != '\0')
 	{
-		if (buf[i] == '\n')
-			line++;
+		if (memory[i] == '\n')
+			return (0);
 		i++;
 	}
+	return (1);
+}
+
+char	*ft_fill_memory_gnl(char *memory, char buf[BUFFER_SIZE + 1], int fd)
+{
+	int	read_return;
+	int	check;
+
+	read_return = 1;
+	check = 1;
+	while (read_return > 0 && check == 1)
+	{
+		read_return = read(fd, buf, BUFFER_SIZE);
+		buf[read_return] = '\0';
+		if (read_return == -1 || (read_return == 0 && memory == NULL))
+		{
+			memory = NULL;
+			return (memory);
+		}
+		if (read_return != 0)
+			memory = ft_strjoin_gnl(memory, buf, read_return);
+		check = ft_check_gnl(memory);
+	}
+	return (memory);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*memory;
+	char		buf[BUFFER_SIZE + 1];
+	char		*line;
+
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	memory = ft_fill_memory_gnl(memory, buf, fd);
+	if (!memory)
+		return (NULL);
+	if (memory[0] == '\0')
+	{
+		free(memory);
+		return (NULL);
+	}
+	line = ft_substr_gnl(memory, 0, (ft_strlen_gnl(memory, 1) + 1), 0);
+	memory = ft_substr_gnl(memory, (ft_strlen_gnl(memory, 1) + 1),
+			(ft_strlen_gnl(memory, 0) - 1), 1);
 	return (line);
-}
-
-char 	**create(char *buf)
-{
-	int a;
-	int b;
-	int c;
-
-	a = 0;
-	c = 0;
-	while (buf[b])
-	{
-		while(buf[b] != '\n' && buf[a])
-			b++;
-		map[c] = ft_substr(buf, a, b);
-		a = 
-	}
-}
-
-char	**get_next_line(int fd)
-{
-	char		buf[99999];
-	char		**map;
-	int 		read_ret;
-
-	if (!fd)
-		return (NULL);
-	read_ret = read(fd,buf, 99999);
-	if (read_ret == -1)
-	{
-		write(1, "read fail\n", 10);
-		return (NULL);
-	}
-	map = malloc(sizeof(char *) * (count_line(buf) + 1));
-	map = create(buf);
-	return (map);
 }
