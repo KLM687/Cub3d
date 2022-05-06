@@ -1,0 +1,3 @@
+probleme des tabs il faut convertir les tabs en 4 spaces
+segfault quand je read un dossier
+Verifier si sky et floor sont bien digit

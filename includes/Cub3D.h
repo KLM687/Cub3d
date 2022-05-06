@@ -33,8 +33,8 @@ typedef struct s_texture
 	char *SO;
 	char *WE;
 	char *EA;
-	int floor;
-	int sky;
+	int floor[3];
+	int sky[3];
 }	t_texture;
 
 typedef struct s_game
@@ -43,7 +43,8 @@ typedef struct s_game
 	t_texture	texture;
 }	t_game;
 
-
-void	get_map(char *map, t_game *game);
+void	get_file(char *map, t_game *game);
+void 	parse_map(t_game *game);
+void	square_map(t_game *game);
 
 #endif

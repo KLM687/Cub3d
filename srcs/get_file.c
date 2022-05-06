@@ -12,63 +12,6 @@
 
 #include "Cub3D.h"
 
-char	*cpy(char *dest, char *src)
-{
-	int i;
-
-	i = 0;
-	while(src[i])
-	{
-		if (src[i] == '\n')
-			return(dest);
-		if (src[i] == '\t')
-			src[i] = ' ';
-		dest[i] = src[i];
-		i++;
-	}
-	return (dest);
-}
-
-int  longest_str(char **map)
-{
-    int i;
-    int size;
-    int longest;
-
-	i = 0;
-	size = 0;
-	longest = ft_strlen(map[i]);
-	while(map[i])
-	{
-		size = ft_strlen(map[i]);
-		if (size > longest)
-			longest = size;
-		i++;
-	}
-    return (longest);
-}
-
-char **square_map(char **map)
-{
-    int 	longest;
-	int 	i;
-	char 	*str;
-
-    longest = longest_str(map);
-	i = 0;
-	while (map[i])
-	{
-		str = malloc(sizeof(char) * longest);
-		ft_memset(str, ' ', longest);
-		str = cpy(str, map[i]);
-		free(map[i]);
-		map[i] = str;
-		i++;
-	}
-	return (map);
-}
-
-
 int	count_line(char *file)
 {
 	int		fd;
@@ -97,7 +40,7 @@ int	count_line(char *file)
 	return (x);
 }
 
-void	get_map(char *map, t_game *game)
+void	get_file(char *map, t_game *game)
 {
     int fd;
 	char *line;
@@ -117,6 +60,5 @@ void	get_map(char *map, t_game *game)
         i++;
 	}
     map_ret[i] = 0;
-	map_ret = square_map(map_ret);
 	game->map.map = map_ret;
 }

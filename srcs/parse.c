@@ -12,12 +12,72 @@
 
 #include "Cub3D.h"
 
-void	parse_texture(t_game *game)
+void	set_background(int a, t_game *game, char *l)
 {
+	char **str;
+	char *tmp;
 
+	tmp = ft_substr(l, 2, (ft_strlen(l) - 2));
+	str = ft_split(tmp, ',');
+	if (ft_size(str) == 3)
+	{
+		if (a == 0)
+		{
+			game->texture.floor[0] = ft_atoi(str[0]);
+			game->texture.floor[1] = ft_atoi(str[1]);
+			game->texture.floor[2] = ft_atoi(str[2]);
+		}
+		if (a == 1)
+		{
+			game->texture.sky[0] = ft_atoi(str[0]);
+			game->texture.sky[1] = ft_atoi(str[1]);
+			game->texture.sky[2] = ft_atoi(str[2]);
+		}
+	}
+	ft_free_tab(str);
+	free(tmp);
 }
 
-void	parse(t_game *game)
+void	set_texture(int a, t_game *game, char *l)
+{
+	if(a == 0)
+		game->texture.NO = ft_substr(l, 3, (ft_strlen(l) - 2));
+	if(a == 1)
+		game->texture.SO = ft_substr(l, 3, (ft_strlen(l) - 2));
+	if(a == 2)
+		game->texture.WE = ft_substr(l, 3, (ft_strlen(l) - 2));
+	if(a == 3)
+		game->texture.EA = ft_substr(l, 3, (ft_strlen(l) - 2));
+}
+
+void	parse_texture(t_game *game)
+{
+	int i;
+	int ctrl;
+
+	i = 0;
+	ctrl = 1;
+	while(game->map.map[i] && ctrl < 7)
+	{
+		if(ft_strncmp(game->map.map[i], "NO",  2) == 0 && ++ctrl)
+			set_texture(0, game, game->map.map[i]);
+		if(ft_strncmp(game->map.map[i], "SO",  2) == 0 && ++ctrl)
+			set_texture(1, game, game->map.map[i]);
+		if(ft_strncmp(game->map.map[i], "WE",  2) == 0 && ++ctrl)
+			set_texture(2, game, game->map.map[i]);
+		if(ft_strncmp(game->map.map[i], "EA",  2) == 0 && ++ctrl)
+			set_texture(3, game, game->map.map[i]);
+		if(ft_strncmp(game->map.map[i], "F",  1) == 0 && ++ctrl)
+			set_background(0, game, game->map.map[i]);
+		if(ft_strncmp(game->map.map[i], "C",  1) == 0 && ++ctrl)
+			set_background(1, game, game->map.map[i]);
+		i++;
+	}
+	if(ctrl == 7)
+		game->map.map = ft_popTab(game->map.map, i);
+}
+
+void	parse_map(t_game *game)
 {
 	parse_texture(game);
 }
