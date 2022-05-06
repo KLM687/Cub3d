@@ -97,7 +97,7 @@ int	count_line(char *file)
 	return (x);
 }
 
-char **get_map(char *map)
+void	get_map(char *map, t_game *game)
 {
     int fd;
 	char *line;
@@ -117,6 +117,6 @@ char **get_map(char *map)
         i++;
 	}
     map_ret[i] = 0;
-    map_ret = square_map(map_ret);
-    return(map_ret);
+	map_ret = square_map(map_ret);
+	game->map.map = map_ret;
 }

@@ -12,3 +12,12 @@
 
 #include "Cub3D.h"
 
+void	parse_texture(t_game *game)
+{
+
+}
+
+void	parse(t_game *game)
+{
+	parse_texture(game);
+}

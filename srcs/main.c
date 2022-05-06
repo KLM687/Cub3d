@@ -14,18 +14,20 @@
 
 int main (int argc, char **argv)
 {
-	char **map;
+	t_game *game;
 
+	game = malloc(sizeof(t_game));
 	if (argc != 2)
 		return (0);
-	map = get_map(argv[1]);
+	get_map(argv[1], game);
 	int i = 0;
-	while(map[i] != 0)
+	while(game->map.map[i] != 0)
 	{
-		printf("%s\n", map[i]);
+		printf("%s\n", game->map.map[i]);
 		i++;
 	}
-	parse_map(map);
-	ft_free_tab(map);
+	parse_map(game);
+	ft_free_tab(game->map.map);
+	free(game);
 	return (0);
 }
