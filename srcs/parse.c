@@ -12,14 +12,34 @@
 
 #include "Cub3D.h"
 
+bool	str_is_digit(char **str)
+{
+	int i;
+	int a;
+
+	i = 0;
+	while (str[i])
+	{
+		a = 0;
+		while(str[i][a])
+		{
+			if (!ft_isdigit(str[i][a]))
+				return (0);
+			a++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	set_background(int a, t_game *game, char *l)
 {
 	char **str;
 	char *tmp;
 
-	tmp = ft_substr(l, 2, (ft_strlen(l) - 2));
+	tmp = ft_substr(l, 2, (ft_strlen(l) - 3));
 	str = ft_split(tmp, ',');
-	if (ft_size(str) == 3)
+	if (ft_size(str) == 3 && str_is_digit(str))
 	{
 		if (a == 0)
 		{
@@ -79,5 +99,11 @@ void	parse_texture(t_game *game)
 
 void	parse_map(t_game *game)
 {
+	game->texture.floor[0] = -1;
+	game->texture.floor[1] = -1;
+	game->texture.floor[2] = -1;
+	game->texture.sky[0] = -1;
+	game->texture.sky[1] = -1;
+	game->texture.sky[2] = -1;
 	parse_texture(game);
 }

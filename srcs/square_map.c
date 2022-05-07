@@ -21,8 +21,6 @@ char	*cpy(char *dest, char *src)
 	{
 		if (src[i] == '\n')
 			return(dest);
-		if (src[i] == '\t')
-			src[i] = ' ';
 		dest[i] = src[i];
 		i++;
 	}
