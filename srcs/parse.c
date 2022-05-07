@@ -61,13 +61,13 @@ void	set_background(int a, t_game *game, char *l)
 void	set_texture(int a, t_game *game, char *l)
 {
 	if(a == 0)
-		game->texture.NO = ft_substr(l, 3, (ft_strlen(l) - 2));
+		game->texture.NO = ft_substr(l, 3, (ft_strlen(l) - 4));
 	if(a == 1)
-		game->texture.SO = ft_substr(l, 3, (ft_strlen(l) - 2));
+		game->texture.SO = ft_substr(l, 3, (ft_strlen(l) - 4));
 	if(a == 2)
-		game->texture.WE = ft_substr(l, 3, (ft_strlen(l) - 2));
+		game->texture.WE = ft_substr(l, 3, (ft_strlen(l) - 4));
 	if(a == 3)
-		game->texture.EA = ft_substr(l, 3, (ft_strlen(l) - 2));
+		game->texture.EA = ft_substr(l, 3, (ft_strlen(l) - 4));
 }
 
 void	parse_texture(t_game *game)

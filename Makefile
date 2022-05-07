@@ -12,7 +12,7 @@
 
 NAME= Cub3d
 
-SRCS= main.c get_file.c parse.c square_map.c
+SRCS= main.c get_file.c parse.c square_map.c game_init.c 
 
 OBJS			=	${addprefix srcs/,${SRCS:.c=.o}}
 
