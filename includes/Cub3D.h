@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <math.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -36,7 +37,9 @@ typedef struct s_texture
 	char *WE;
 	char *EA;
 	int floor[3];
+	int f_rgb;
 	int sky[3];
+	int s_rgb;
 }	t_texture;
 
 typedef struct s_player
@@ -74,6 +77,7 @@ typedef struct s_game
 	t_map		map;
 	t_texture	texture;
 	t_player	player;
+	t_img		windows;
 	t_img		NO;
 	t_img		SO;
 	t_img		WE;

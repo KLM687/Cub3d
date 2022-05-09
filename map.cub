@@ -3,8 +3,8 @@ SO ./img/colorstone.xpm
 WE ./img/eagle.xpm
 EA ./img/redbrick.xpm
 
-F 220,100,0
-C 225,111,0
+F 128,128,128
+C 0,0,0
 
 11111111111111111111111
 10000000000000000000001
