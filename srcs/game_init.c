@@ -116,6 +116,46 @@ void	draw_player(t_game *game)
 	}
 }
 
+void	move_up(t_game *game)
+{
+	game->player.posY -= 1;
+}
+
+void	move_left(t_game *game)
+{
+	game->player.posX -= 1;
+}
+
+void move_right(t_game *game)
+{
+	game->player.posX += 1;
+}
+
+void move_down(t_game *game)
+{
+	game->player.posY += 1;
+}
+
+
+int	input(int key, t_game *game)
+{
+	if (key == 65307)
+		printf("FREEEEE on PROOOOOGREEESS\n");
+	else if (key == 119)
+		move_left(game);
+	else if (key == 97)
+		move_up(game);
+	else if (key == 100)
+		move_down(game);
+	else if (key == 115)
+		move_right(game);
+	draw_background(game);
+	draw_player(game);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
+	return (0);
+}
+
+
 void	game_init(t_game *game)
 {
 
@@ -144,7 +184,7 @@ void	game_init(t_game *game)
 
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
  
-	mlx_key_hook(game->mlx.windows, input, game);
+	mlx_hook(game->mlx.windows, 2, 1L<<0, input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5,0 , game);
 	mlx_loop(game->mlx.mlx);
 }
