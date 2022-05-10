@@ -115,7 +115,9 @@ void	draw_background(t_game *game)
 
 void	move_up(t_game *game)
 {
-	game->player.posY -= (game->player.dirY + 4);
+	game->player.posX += game->player.dirX;
+	game->player.posY += game->player.dirY;
+
 	draw_background(game);
 	draw_player(game);
 	draw_vector(game);
@@ -123,14 +125,14 @@ void	move_up(t_game *game)
 
 void	move_left(t_game *game)
 {
-	game->player.posX -= (game->player.dirX + 4);
+	game->player.posX -= game->player.dirX;
 	draw_player(game);
 	draw_vector(game);
 }
 
 void move_right(t_game *game)
 {
-	game->player.posX += (game->player.dirX + 4);
+	game->player.posX += game->player.dirX;
 	draw_background(game);
 	draw_player(game);
 	draw_vector(game);
@@ -138,7 +140,8 @@ void move_right(t_game *game)
 
 void move_down(t_game *game)
 {
-	game->player.posY += (game->player.dirY + 4);
+	game->player.posX -= game->player.dirX;
+	game->player.posY -= game->player.dirY;
 	draw_background(game);
 	draw_player(game);
 	draw_vector(game);	
@@ -191,8 +194,8 @@ void	game_init(t_game *game)
 
 	game->player.posX = (1280 / 2);
 	game->player.posY = (1024 / 2);
-	game->player.dirX = 0;
-	game->player.dirY = 1;
+	game->player.dirX = -1;
+	game->player.dirY = 0;
 	
 	game = open_img(game);
 	
