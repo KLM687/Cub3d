@@ -12,6 +12,9 @@
 
 #include "Cub3D.h"
 
+
+
+
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
@@ -20,23 +23,22 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	undraw_player(t_game *game)
+void 	draw_vector(t_game *game)
 {
+	int i;
 	int x;
 	int y;
 
-	x = game->player.posX - 10;
-	while (x < (game->player.posX + 10))
+	i = 0;
+	x = game->player.posX;
+	y = game->player.posY;
+	while (i < 50)
 	{
-		y = game->player.posY - 10;
-		while (y < (game->player.posY + 10))
-		{
-			my_mlx_pixel_put(&game->windows, x, y, game->texture.s_rgb);
-			y++;
-		}
-		x++;
+		x += game->player.dirX;
+		y += game->player.dirY;
+		my_mlx_pixel_put(&game->windows, x, y, 0xFFFFFF);
+		i++;
 	}
-	
 }
 
 void 	draw_player(t_game *game)
@@ -55,6 +57,8 @@ void 	draw_player(t_game *game)
 		}
 		x++;
 	}
+	//-----------------------draw direction--------------------------//
+
 }
 
 void	img_addr(t_game *game)
@@ -111,36 +115,50 @@ void	draw_background(t_game *game)
 
 void	move_up(t_game *game)
 {
-	undraw_player(game);
-	game->player.posY -= 4;
+	game->player.posY -= (game->player.dirY + 4);
 	draw_background(game);
 	draw_player(game);
+	draw_vector(game);
 }
 
 void	move_left(t_game *game)
 {
-	undraw_player(game);
-	game->player.posX -= 4;
+	game->player.posX -= (game->player.dirX + 4);
 	draw_player(game);
+	draw_vector(game);
 }
 
 void move_right(t_game *game)
 {
-	undraw_player(game);
-	game->player.posX += 4;
+	game->player.posX += (game->player.dirX + 4);
 	draw_background(game);
 	draw_player(game);
+	draw_vector(game);
 }
 
 void move_down(t_game *game)
 {
-	undraw_player(game);
-	game->player.posY += 4;
+	game->player.posY += (game->player.dirY + 4);
 	draw_background(game);
 	draw_player(game);
+	draw_vector(game);	
 }
 
+/*void rotate_left(t_game *game)
+{
+	if (game->player.dirY > 0)	
+	{
+		game->player.dirX -= 0.1;
+		game->player.dirY 
+	}
+	game->player.dirY 
+}
 
+void rotate_right(t_game *game)
+{
+
+}
+*/
 int	input(int key, t_game *game)
 {
 	if (key == 65307)
@@ -153,6 +171,10 @@ int	input(int key, t_game *game)
 		move_down(game);
 	else if (key == 100)
 		move_right(game);
+	/*else if (key == 65361)
+		rotate_left(game);
+	else if (key == 65363)
+		rotate_right(game);*/
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 	return (0);
 }
@@ -169,6 +191,8 @@ void	game_init(t_game *game)
 
 	game->player.posX = (1280 / 2);
 	game->player.posY = (1024 / 2);
+	game->player.dirX = 0;
+	game->player.dirY = 1;
 	
 	game = open_img(game);
 	
@@ -180,8 +204,33 @@ void	game_init(t_game *game)
 
 	draw_background(game);
 	draw_player(game);
+	draw_vector(game);
 
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
+
+	//-------------------veeeeeeeeeeeeeeeeeeeeeeectooooooooooooooooooooooooooooooor-------------------------------------------------------//
+
+	/*game->player.dirX = 0;
+	game->player.dirY = 1;
+	game->player.planeX = 0;
+	game->player.planeY = 0.66;
+
+	bool done = true;
+	double w = 3;
+	int x = 0;
+
+	while (done)
+	{
+		while (x < w)
+		{
+			double cameraX = (2 * x) / (w - 1);
+			double rayDirX = game->player.dirX + game->player.planeX * cameraX;
+			double rayDirY = game->player.dirY + game->player.planeY * cameraX;
+			printf("%f %f \n", rayDirX, rayDirY);
+			x++;
+		}
+	}*/
+
  
 	mlx_hook(game->mlx.windows, 2, 1L<<0, input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5,0 , game);
