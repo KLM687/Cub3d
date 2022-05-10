@@ -12,6 +12,51 @@
 
 #include "Cub3D.h"
 
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_l + x * (data->byte_p / 8));
+	*(unsigned int*)dst = color;
+}
+
+void	undraw_player(t_game *game)
+{
+	int x;
+	int y;
+
+	x = game->player.posX - 10;
+	while (x < (game->player.posX + 10))
+	{
+		y = game->player.posY - 10;
+		while (y < (game->player.posY + 10))
+		{
+			my_mlx_pixel_put(&game->windows, x, y, game->texture.s_rgb);
+			y++;
+		}
+		x++;
+	}
+	
+}
+
+void 	draw_player(t_game *game)
+{
+	int x;
+	int y;
+
+	x = game->player.posX - 10;
+	while (x < (game->player.posX + 10))
+	{
+		y = game->player.posY - 10;
+		while (y < (game->player.posY + 10))
+		{
+			my_mlx_pixel_put(&game->windows, x, y, 0xFFFFFF);
+			y++;
+		}
+		x++;
+	}
+}
+
 void	img_addr(t_game *game)
 {
 	game->NO.addr = mlx_get_data_addr(game->NO.img,
@@ -38,14 +83,6 @@ t_game	*open_img(t_game *game)
 	return (game);
 }
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_l + x * (data->byte_p / 8));
-	*(unsigned int*)dst = color;
-}
-
 int	create_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
@@ -55,85 +92,52 @@ void	draw_background(t_game *game)
 {
 	int x = 0;
 	int y = 0;
-	while (x < 1920)
+	while (x < 1280)
 	{
 		y = 0;
-		while (y < 1080)
+		while (y < 1024)
 		{
-			//if (y < (1080 / 2))
-			//	my_mlx_pixel_put(&game->windows, x, y, game->texture.f_rgb);
-			//else
-			my_mlx_pixel_put(&game->windows, x, y, game->texture.s_rgb);
+			if ((x % game->map.grid_size) == 0 || (y % game->map.grid_size) == 0)
+				my_mlx_pixel_put(&game->windows, x, y, 0xFFFF00);
+			//if else (y < (1024 / 2))
+				//my_mlx_pixel_put(&game->windows, x, y, game->texture.f_rgb);
+			else
+				my_mlx_pixel_put(&game->windows, x, y, game->texture.s_rgb);
 			y++;
 		}
 		x++;
 	}	
 }
 
-float square(float a)
-{
-	return (a * a);
-}
-
-float sq_dist(float x1, float y1, float x2, float y2)
-{
-	float dist_x;
-	float dist_y;
-
-	dist_x = square(x1 - x2);
-	dist_y = square(y1 - y2);
-	return (dist_x + dist_y);
-}
-
-int is_in_circle(float x, float y, float circleX, float circleY)
-{
-	float	distance;
-	float	distance_sqrt;
-
-	distance_sqrt = sqrtf(sq_dist(x, y, circleX, circleY));
-	distance = distance_sqrt - 5;
-	if (distance <= 0.00000000)
-		return (1);
-	return (0);
-}
-
-void	draw_player(t_game *game)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (x < 1980)
-	{
-		y = 0;
-		while (y < 1080)
-		{
-			if(!is_in_circle(x, y, game->player.posX, game->player.posY))
-				my_mlx_pixel_put(&game->windows, x, y, game->texture.f_rgb);
-			y++;
-		}
-		x++;
-	}
-}
-
 void	move_up(t_game *game)
 {
-	game->player.posY -= 1;
+	undraw_player(game);
+	game->player.posY -= 4;
+	draw_background(game);
+	draw_player(game);
 }
 
 void	move_left(t_game *game)
 {
-	game->player.posX -= 1;
+	undraw_player(game);
+	game->player.posX -= 4;
+	draw_player(game);
 }
 
 void move_right(t_game *game)
 {
-	game->player.posX += 1;
+	undraw_player(game);
+	game->player.posX += 4;
+	draw_background(game);
+	draw_player(game);
 }
 
 void move_down(t_game *game)
 {
-	game->player.posY += 1;
+	undraw_player(game);
+	game->player.posY += 4;
+	draw_background(game);
+	draw_player(game);
 }
 
 
@@ -141,37 +145,34 @@ int	input(int key, t_game *game)
 {
 	if (key == 65307)
 		printf("FREEEEE on PROOOOOGREEESS\n");
-	else if (key == 119)
-		move_left(game);
 	else if (key == 97)
+		move_left(game);
+	else if (key == 119)
 		move_up(game);
-	else if (key == 100)
-		move_down(game);
 	else if (key == 115)
+		move_down(game);
+	else if (key == 100)
 		move_right(game);
-	draw_background(game);
-	draw_player(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 	return (0);
 }
-
 
 void	game_init(t_game *game)
 {
 
 
 	game->mlx.mlx = mlx_init();
-	game->mlx.w_x = 1920;
-	game->mlx.w_y = 1080;
+	game->mlx.w_x = 1280;
+	game->mlx.w_y = 1024;
 	game->mlx.windows = mlx_new_window(game->mlx.mlx,
 			game->mlx.w_x, game->mlx.w_y, "CUB3333333333D");
 
-	game->player.posX = (1980 / 2);
-	game->player.posY = (1080 / 2);
+	game->player.posX = (1280 / 2);
+	game->player.posY = (1024 / 2);
 	
 	game = open_img(game);
 	
-	game->windows.img = mlx_new_image(game->mlx.mlx, 1920, 1080);
+	game->windows.img = mlx_new_image(game->mlx.mlx, 1280, 1024);
 	game->windows.addr = mlx_get_data_addr(game->windows.img, &game->windows.byte_p, &game->windows.line_l, &game->windows.end);
 
 	game->texture.f_rgb = create_rgb(game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
@@ -179,8 +180,6 @@ void	game_init(t_game *game)
 
 	draw_background(game);
 	draw_player(game);
-
-
 
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
  

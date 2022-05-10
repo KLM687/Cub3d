@@ -63,4 +63,5 @@ void	square_map(t_game *game)
 		game->map.map[i] = str;
 		i++;
 	}
+	game->map.grid_size = (1280 / longest);
 }

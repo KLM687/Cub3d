@@ -23,11 +23,12 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define IMG_SIZE 100
+# define pi 3.14159265359
 
 typedef struct s_map
 {
 	char **map;
+	int  grid_size;
 }	t_map;
 
 typedef struct s_texture
