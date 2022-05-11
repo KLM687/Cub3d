@@ -110,7 +110,8 @@ void	draw_background(t_game *game)
 			y++;
 		}
 		x++;
-	}	
+	}
+	draw_wall(game);
 }
 
 void	move_up(t_game *game)
@@ -125,14 +126,27 @@ void	move_up(t_game *game)
 
 void	move_left(t_game *game)
 {
-	game->player.posX -= game->player.dirX;
+	double tmp_pa = game->player.pa - (pi / 2);
+	if (tmp_pa < 0)
+		tmp_pa += 2*pi;
+	double dirX = cos(tmp_pa) * 5;
+	double dirY = sin(tmp_pa) * 5;
+	game->player.posX += dirX;
+	game->player.posY += dirY;
+	draw_background(game);
 	draw_player(game);
 	draw_vector(game);
 }
 
 void move_right(t_game *game)
 {
-	game->player.posX += game->player.dirX;
+	double tmp_pa = game->player.pa + (pi / 2);
+	if (tmp_pa < 2*pi)
+		tmp_pa -= 2*pi;
+	double dirX = cos(tmp_pa) * 5;
+	double dirY = sin(tmp_pa) * 5;
+	game->player.posX += dirX;
+	game->player.posY += dirY;
 	draw_background(game);
 	draw_player(game);
 	draw_vector(game);
@@ -147,21 +161,32 @@ void move_down(t_game *game)
 	draw_vector(game);	
 }
 
-/*void rotate_left(t_game *game)
+void rotate_left(t_game *game)
 {
-	if (game->player.dirY > 0)	
-	{
-		game->player.dirX -= 0.1;
-		game->player.dirY 
-	}
-	game->player.dirY 
+	game->player.pa -= 0.1;
+	if (game->player.pa < 0)
+		game->player.pa += 2*pi;
+	game->player.dirX = cos(game->player.pa) * 5;
+	game->player.dirY = sin(game->player.pa) * 5;
+	draw_background(game);
+	draw_player(game);
+	draw_vector(game);
 }
 
 void rotate_right(t_game *game)
 {
+	game->player.pa += 0.1;
+	if (game->player.pa > 2*pi)
+		game->player.pa -= 2*pi;
+	game->player.dirX = cos(game->player.pa) * 5;
+	game->player.dirY = sin(game->player.pa) * 5;
+	draw_background(game);
+	draw_player(game);
+	draw_vector(game);
 
 }
-*/
+
+
 int	input(int key, t_game *game)
 {
 	if (key == 65307)
@@ -174,10 +199,11 @@ int	input(int key, t_game *game)
 		move_down(game);
 	else if (key == 100)
 		move_right(game);
-	/*else if (key == 65361)
+	else if (key == 65361)
 		rotate_left(game);
 	else if (key == 65363)
-		rotate_right(game);*/
+		rotate_right(game);
+	printf("x = %f y = %f\n", game->player.posX, game->player.posY);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 	return (0);
 }
@@ -194,8 +220,9 @@ void	game_init(t_game *game)
 
 	game->player.posX = (1280 / 2);
 	game->player.posY = (1024 / 2);
-	game->player.dirX = -1;
+	game->player.dirX = 1;
 	game->player.dirY = 0;
+	game->player.pa = 0;
 	
 	game = open_img(game);
 	
@@ -208,32 +235,8 @@ void	game_init(t_game *game)
 	draw_background(game);
 	draw_player(game);
 	draw_vector(game);
-
+	
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
-
-	//-------------------veeeeeeeeeeeeeeeeeeeeeeectooooooooooooooooooooooooooooooor-------------------------------------------------------//
-
-	/*game->player.dirX = 0;
-	game->player.dirY = 1;
-	game->player.planeX = 0;
-	game->player.planeY = 0.66;
-
-	bool done = true;
-	double w = 3;
-	int x = 0;
-
-	while (done)
-	{
-		while (x < w)
-		{
-			double cameraX = (2 * x) / (w - 1);
-			double rayDirX = game->player.dirX + game->player.planeX * cameraX;
-			double rayDirY = game->player.dirY + game->player.planeY * cameraX;
-			printf("%f %f \n", rayDirX, rayDirY);
-			x++;
-		}
-	}*/
-
  
 	mlx_hook(game->mlx.windows, 2, 1L<<0, input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5,0 , game);

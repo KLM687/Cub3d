@@ -47,8 +47,9 @@ typedef struct s_player
 {
 	float posX;
 	float posY;
-	int	dirX;
-	int dirY;
+	double	dirX;
+	double	dirY;
+	double pa;
 	float planeX;
 	float planeY;
 	int mapX;
