@@ -12,6 +12,7 @@
 
 #include "Cub3D.h"
 
+void	draw(t_game *game);
 
 
 
@@ -21,46 +22,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_l + x * (data->byte_p / 8));
 	*(unsigned int*)dst = color;
-}
-
-void 	draw_vector(t_game *game)
-{
-	int i;
-	int x;
-	int y;
-
-	i = 0;
-	x = game->player.posX;
-	y = game->player.posY;
-	while (i < 50)
-	{
-		x += game->player.dirX;
-		y += game->player.dirY;
-		if ((x < 1280 && y < 1000) && (x > 0 && y > 0))	
-			my_mlx_pixel_put(&game->windows, x, y, 0xFFFFFF);
-		i++;
-	}
-}
-
-void 	draw_player(t_game *game)
-{
-	int x;
-	int y;
-
-	x = game->player.posX - 10;
-	while (x < (game->player.posX + 10))
-	{
-		y = game->player.posY - 10;
-		while (y < (game->player.posY + 10))
-		{
-			if (x < 1280 && y < 1000 && x > 0 && y > 0)
-				my_mlx_pixel_put(&game->windows, x, y, 0xFFFFFF);
-			y++;
-		}
-		x++;
-	}
-	//-----------------------draw direction--------------------------//
-
 }
 
 void	img_addr(t_game *game)
@@ -98,12 +59,12 @@ void	draw_background(t_game *game)
 {
 	int x = 0;
 	int y = 0;
-	while (x < 1280)
+	while (x < 1920)
 	{
 		y = 0;
-		while (y < 1024)
+		while (y < 1280)
 		{
-			if (y < (1024 / 2))
+			if (y < (1280 / 2))
 				my_mlx_pixel_put(&game->windows, x, y, game->texture.f_rgb);
 			else
 				my_mlx_pixel_put(&game->windows, x, y, game->texture.s_rgb);
@@ -115,12 +76,9 @@ void	draw_background(t_game *game)
 
 void	move_up(t_game *game)
 {
-	game->player.posX += game->player.dirX;
-	game->player.posY += game->player.dirY;
-
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);
+	game->player.posX += game->player.dirX * 0.01;
+	game->player.posY += game->player.dirY * 0.01;
+	draw(game);
 }
 
 void	move_left(t_game *game)
@@ -132,9 +90,6 @@ void	move_left(t_game *game)
 	double dirY = sin(tmp_pa) * 5;
 	game->player.posX += dirX;
 	game->player.posY += dirY;
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);
 }
 
 void move_right(t_game *game)
@@ -146,43 +101,37 @@ void move_right(t_game *game)
 	double dirY = sin(tmp_pa) * 5;
 	game->player.posX += dirX;
 	game->player.posY += dirY;
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);
 }
 
 void move_down(t_game *game)
 {
-	game->player.posX -= game->player.dirX;
-	game->player.posY -= game->player.dirY;
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);	
-}
-
-void rotate_left(t_game *game)
-{
-	game->player.pa -= 0.1;
-	if (game->player.pa < 0)
-		game->player.pa += 2*pi;
-	game->player.dirX = cos(game->player.pa) * 5;
-	game->player.dirY = sin(game->player.pa) * 5;
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);
+	game->player.posX -= game->player.dirX * 0.01;
+	game->player.posY -= game->player.dirY * 0.01;
+	draw(game);
 }
 
 void rotate_right(t_game *game)
 {
-	game->player.pa += 0.1;
-	if (game->player.pa > 2*pi)
-		game->player.pa -= 2*pi;
-	game->player.dirX = cos(game->player.pa) * 5;
-	game->player.dirY = sin(game->player.pa) * 5;
-	draw_background(game);
-	draw_player(game);
-	draw_vector(game);
+	float rotSpeed = 0.01;
+	double oldDirX = game->player.dirX;
+	game->player.dirX = game->player.dirX * cos(-rotSpeed) - game->player.dirY * sin(-rotSpeed);
+    game->player.dirY = oldDirX * sin(-rotSpeed) + game->player.dirY * cos(-rotSpeed);
+    double oldPlaneX = game->player.planeX;
+    game->player.planeX = game->player.planeX * cos(-rotSpeed) - game->player.planeY * sin(-rotSpeed);
+    game->player.planeY = oldPlaneX * sin(-rotSpeed) + game->player.planeY * cos(-rotSpeed);
+	draw(game);
+}
 
+void rotate_left(t_game *game)
+{
+	float rotSpeed = 0.01;
+	double oldDirX = game->player.dirX;
+	game->player.dirX = game->player.dirX * cos(rotSpeed) - game->player.dirY * sin(rotSpeed);
+    game->player.dirY = oldDirX * sin(rotSpeed) + game->player.dirY * cos(rotSpeed);
+    double oldPlaneX = game->player.planeX;
+    game->player.planeX = game->player.planeX * cos(rotSpeed) - game->player.planeY * sin(rotSpeed);
+    game->player.planeY = oldPlaneX * sin(rotSpeed) + game->player.planeY * cos(rotSpeed);
+	draw(game);
 }
 
 
@@ -202,72 +151,34 @@ int	input(int key, t_game *game)
 		rotate_left(game);
 	else if (key == 65363)
 		rotate_right(game);
-	printf("x = %f y = %f\n", game->player.posX, game->player.posY);
-	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 	return (0);
 }
 
 void 	verline(int x, int drawStart, int drawEnd, int color, t_game *game)
 {
+	int ground;
+
+	ground = 0;
+	while(ground < drawStart)
+	{
+		my_mlx_pixel_put(&game->windows, x, ground, 0x008000);
+		ground++;
+	}
 	while (drawStart != drawEnd)
 	{
 		my_mlx_pixel_put(&game->windows, x, drawStart, color);
 		drawStart++;
 	}
+	while (drawStart < 1280)
+	{
+		my_mlx_pixel_put(&game->windows, x, drawStart, 0x00FF00);
+		drawStart++;
+	}
 }
 
-void	game_init(t_game *game)
+void	draw(t_game *game)
 {
-
-
-	game->mlx.mlx = mlx_init();
-	game->mlx.w_x = 1920;
-	game->mlx.w_y = 1280;
-	game->mlx.windows = mlx_new_window(game->mlx.mlx,
-			game->mlx.w_x, game->mlx.w_y, "CUB3333333333D");
-
-	int z;
-	int s;
-	z = 0;
-	while(game->map.map[z])
-	{
-		s = 0;
-		while(game->map.map[z][s]) 
-		{
-			if (game->map.map[z][s] == 'P')
-			{
-				game->player.posX = z;
-				game->player.posY = s;
-			}
-			s++;
-		}
-		z++;
-	}
-	game->player.dirX = -1;
-	game->player.dirY = 0;
-	game->player.pa = 0;
-	
-	game = open_img(game);
-	
-	game->windows.img = mlx_new_image(game->mlx.mlx, 1920, 1280);
-	game->windows.addr = mlx_get_data_addr(game->windows.img, &game->windows.byte_p, &game->windows.line_l, &game->windows.end);
-
-	game->texture.f_rgb = create_rgb(game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
-	game->texture.s_rgb = create_rgb(game->texture.sky[0], game->texture.sky[1], game->texture.sky[2]);
-
-	//draw_background(game);
-	//draw_player(game);
-	//draw_vector(game);
-	
-	//mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
-
-	game->player.planeX = 0;
-	game->player.planeY = 0.66;
-
 	double w = 1920;
-	while (1)
-	{
-		//draw_background(game);
 		for(int x = 0; x < w; x++)
     	{
       		double cameraX = 2 * x / w - 1;
@@ -341,19 +252,60 @@ void	game_init(t_game *game)
       		int drawEnd = lineHeight / 2 + h / 2;
       		if (drawEnd >= h || drawEnd < 0)
 			  	drawEnd = h;
-
-			printf("%d\n", drawEnd);	
 			if(side == 1)
 				verline(x, drawStart, drawEnd, 0xCD5C5C, game);
 			else
 				verline(x , drawStart, drawEnd, 0xF08080, game);
 		}
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
+}
+
+void	game_init(t_game *game)
+{
+
+
+	game->mlx.mlx = mlx_init();
+	game->mlx.w_x = 1920;
+	game->mlx.w_y = 1280;
+	game->mlx.windows = mlx_new_window(game->mlx.mlx,
+			game->mlx.w_x, game->mlx.w_y, "CUB3333333333D");
+
+	int z;
+	int s;
+	z = 0;
+	while(game->map.map[z])
+	{
+		s = 0;
+		while(game->map.map[z][s]) 
+		{
+			if (game->map.map[z][s] == 'P')
+			{
+				game->player.posX = z;
+				game->player.posY = s;
+			}
+			s++;
+		}
+		z++;
 	}
+	game->player.dirX = -1;
+	game->player.dirY = 0;
+	game->player.pa = 0;
+	
+	game = open_img(game);
+	
+	game->windows.img = mlx_new_image(game->mlx.mlx, 1920, 1280);
+	game->windows.addr = mlx_get_data_addr(game->windows.img, &game->windows.byte_p, &game->windows.line_l, &game->windows.end);
 
+	game->texture.f_rgb = create_rgb(game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
+	game->texture.s_rgb = create_rgb(game->texture.sky[0], game->texture.sky[1], game->texture.sky[2]);
 
- 
+	game->player.planeX = 0;
+	game->player.planeY = 0.66;
+
+	draw(game);
+
 	mlx_hook(game->mlx.windows, 2, 1L<<0, input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5,0 , game);
 	mlx_loop(game->mlx.mlx);
+
 }
