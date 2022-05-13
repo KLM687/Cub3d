@@ -336,10 +336,13 @@ void	game_init(t_game *game)
 			int lineHeight = (int)(h / perpWallDist);
 
     		int drawStart = -lineHeight / 2 + h / 2;
-      		if(drawStart < 0)drawStart = 0;
-      			int drawEnd = lineHeight / 2 + h / 2;
-      		if(drawEnd >= h)drawEnd = h - 1;
-			
+      		if(drawStart < 0)
+			  	drawStart = 0;
+      		int drawEnd = lineHeight / 2 + h / 2;
+      		if (drawEnd >= h || drawEnd < 0)
+			  	drawEnd = h;
+
+			printf("%d\n", drawEnd);	
 			if(side == 1)
 				verline(x, drawStart, drawEnd, 0xCD5C5C, game);
 			else
