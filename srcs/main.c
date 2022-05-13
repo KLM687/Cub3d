@@ -22,6 +22,12 @@ int main (int argc, char **argv)
 	get_file(argv[1], game);
 	parse_map(game);
 	square_map(game);
+	int i = 0;
+	while (game->map.map[i])
+	{
+		printf("%s\n", game->map.map[i]);
+		i++;
+	}
 	game_init(game);
 	free(game->texture.EA);
 	free(game->texture.NO);

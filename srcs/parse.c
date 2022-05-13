@@ -70,6 +70,20 @@ void	set_texture(int a, t_game *game, char *l)
 		game->texture.EA = ft_substr(l, 3, (ft_strlen(l) - 4));
 }
 
+bool	line_is_empty(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	parse_texture(t_game *game)
 {
 	int i;
@@ -94,7 +108,11 @@ void	parse_texture(t_game *game)
 		i++;
 	}
 	if(ctrl == 7)
+	{
+		while (line_is_empty(game->map.map[i]))
+			i++;
 		game->map.map = ft_popTab(game->map.map, i);
+	}
 }
 
 void	parse_map(t_game *game)
