@@ -12,8 +12,6 @@
 
 #include "Cub3D.h"
 
-void	draw(t_game *game);
-
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
@@ -24,9 +22,8 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 
 void	move_up(t_game *game)
 {
-	game->player.posX += game->player.dirX * 0.01;
-	game->player.posY += game->player.dirY * 0.01;
-	draw(game);
+	game->player.posX += game->player.dirX * 0.1;
+	game->player.posY += game->player.dirY * 0.1;
 }
 
 /*void	move_left(t_game *game)
@@ -39,9 +36,8 @@ void	move_up(t_game *game)
 
 void move_down(t_game *game)
 {
-	game->player.posX -= game->player.dirX * 0.01;
-	game->player.posY -= game->player.dirY * 0.01;
-	draw(game);
+	game->player.posX -= game->player.dirX * 0.1;
+	game->player.posY -= game->player.dirY * 0.1;
 }
 
 void rotate_right(t_game *game)
@@ -53,7 +49,6 @@ void rotate_right(t_game *game)
     double oldPlaneX = game->player.planeX;
     game->player.planeX = game->player.planeX * cos(-rotSpeed) - game->player.planeY * sin(-rotSpeed);
     game->player.planeY = oldPlaneX * sin(-rotSpeed) + game->player.planeY * cos(-rotSpeed);
-	draw(game);
 }
 
 void rotate_left(t_game *game)
@@ -65,12 +60,12 @@ void rotate_left(t_game *game)
     double oldPlaneX = game->player.planeX;
     game->player.planeX = game->player.planeX * cos(rotSpeed) - game->player.planeY * sin(rotSpeed);
     game->player.planeY = oldPlaneX * sin(rotSpeed) + game->player.planeY * cos(rotSpeed);
-	draw(game);
 }
 
 
 int	input(int key, t_game *game)
 {
+	usleep(500);
 	if (key == 65307)
 		printf("FREEEEE on PROOOOOGREEESS\n");
 	//else if (key == 97)
@@ -88,112 +83,27 @@ int	input(int key, t_game *game)
 	return (0);
 }
 
-void 	verline(int x, int drawStart, int drawEnd, int color, t_game *game)
+void 	verline(int x, int raycastingStart, int raycastingEnd, int color, t_game *game)
 {
 	int ground;
 
 	ground = 0;
-	while(ground < drawStart)
+	while(ground < raycastingStart)
 	{
 		my_mlx_pixel_put(&game->windows, x, ground, 0x008000);
 		ground++;
 	}
-	while (drawStart != drawEnd)
+	while (raycastingStart != raycastingEnd)
 	{
-		my_mlx_pixel_put(&game->windows, x, drawStart, color);
-		drawStart++;
+		my_mlx_pixel_put(&game->windows, x, raycastingStart, color);
+		raycastingStart++;
 	}
-	while (drawStart < 1280)
+	while (raycastingStart < 1280)
 	{
-		my_mlx_pixel_put(&game->windows, x, drawStart, 0x00FF00);
-		drawStart++;
+		my_mlx_pixel_put(&game->windows, x, raycastingStart, 0x00FF00);
+		raycastingStart++;
 	}
 }
-
-void	draw(t_game *game)
-{
-	double w = 1920;
-		for(int x = 0; x < w; x+=2)
-    	{
-      		double cameraX = 2 * x / w - 1;
-      		double rayDirX = game->player.dirX + game->player.planeX * cameraX;
-      		double rayDirY = game->player.dirY + game->player.planeY * cameraX;
-
-			int mapX = (int)game->player.posX;
-      		int mapY = (int)game->player.posY;
-			
-			double sideDistX;
-      		double sideDistY;
-
-      		double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-      		double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-      		double perpWallDist;
-
-      		int stepX;
-      		int stepY;
-			int hit = 0;
-      		int side; 
-
-     		if (rayDirX < 0)
-      		{
-        		stepX = -1;
-        		sideDistX = (game->player.posX - mapX) * deltaDistX;
-      		}
-      		else
-      		{
-      			stepX = 1;
-    			sideDistX = (mapX + 1.0 - game->player.posX) * deltaDistX;
-     		}
-      		if (rayDirY < 0)
-      		{
-       			stepY = -1;
-        		sideDistY = (game->player.posY - mapY) * deltaDistY;
-      		}
-      		else
-      		{
-        		stepY = 1;
-        		sideDistY = (mapY + 1.0 - game->player.posY) * deltaDistY;
-    		}
-			while (hit == 0)
-      		{
-        		if (sideDistX < sideDistY)
-        		{
-        		  sideDistX += deltaDistX;
-        		  mapX += stepX;
-        		  side = 0;
-        		}
-        		else
-        		{
-        		  sideDistY += deltaDistY;
-        		  mapY += stepY;
-        		  side = 1;
-        		}
-        		if (game->map.map[mapX][mapY] == '1')
-					hit = 1;
-			}
-			if(side == 0) 
-				perpWallDist = (sideDistX - deltaDistX);
-   	   		else        
-			  	perpWallDist = (sideDistY - deltaDistY);
-
-			int h = 1280;
-
-			int lineHeight = (int)(h / perpWallDist);
-
-    		int drawStart = -lineHeight / 2 + h / 2;
-      		if(drawStart < 0)
-			  	drawStart = 0;
-      		int drawEnd = lineHeight / 2 + h / 2;
-      		if (drawEnd >= h || drawEnd < 0)
-			  	drawEnd = h;
-			if(side == 1)
-				verline(x, drawStart, drawEnd, 0xCD5C5C, game);
-			else
-				verline(x , drawStart, drawEnd, 0xF08080, game);
-		}
-		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
-}
-
 
 void	get_player(t_game *game)
 {
@@ -219,6 +129,12 @@ void	get_player(t_game *game)
 	game->player.planeY = 0.66;
 }
 
+int test_render(t_game *game)
+{
+	raycasting(game);
+	return (1);
+}
+
 void	game_loop(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
@@ -231,10 +147,11 @@ void	game_loop(t_game *game)
 	game->player.pa = 0;
 	
 	open_img(game);
-	draw(game);
-
-	mlx_hook(game->mlx.windows, 2, 1L<<0, input, game);
+	raycasting(game);
+	mlx_loop_hook(game->mlx.mlx, &test_render , game);
+	mlx_hook(game->mlx.windows, 2, 1L<<0 , input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5,0 , game);
 	mlx_loop(game->mlx.mlx);
+
 
 }

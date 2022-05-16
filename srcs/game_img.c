@@ -40,7 +40,7 @@ void	open_img(t_game *game)
 			game->texture.SO, &game->SO.byte_p, &game->SO.line_l);
 	game->WE.img = mlx_xpm_file_to_image(game->mlx.mlx,
 			game->texture.WE, &game->WE.byte_p, &game->WE.line_l);
-	game->windows.img = mlx_new_image(game->mlx.mlx, 1920, 1280);
+	game->windows.img = mlx_new_image(game->mlx.mlx, windows_x, windows_y);
 	img_addr(game);
 	game->texture.f_rgb = create_rgb(game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
 	game->texture.s_rgb = create_rgb(game->texture.sky[0], game->texture.sky[1], game->texture.sky[2]);

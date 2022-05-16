@@ -92,5 +92,7 @@ void 	parse_map(t_game *game);
 void	square_map(t_game *game);
 void	game_loop(t_game *game);
 void	open_img(t_game *game);
+void	raycasting(t_game *game);
+void 	verline(int x, int drawStart, int drawEnd, int color, t_game *game);
 
 #endif
