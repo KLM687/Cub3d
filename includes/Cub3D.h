@@ -93,6 +93,8 @@ void	square_map(t_game *game);
 void	game_loop(t_game *game);
 void	open_img(t_game *game);
 void	raycasting(t_game *game);
-void 	verline(int x, int drawStart, int drawEnd, int color, t_game *game);
+void 	verline(int x, int drawStart, int drawEnd, int side, t_game *game);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int 	input(int key, t_game *game);
 
 #endif
