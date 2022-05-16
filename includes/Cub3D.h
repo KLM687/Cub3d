@@ -23,7 +23,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define pi 3.14159265359
+# define windows_x 1920
+# define windows_y 1280
 
 typedef struct s_map
 {
@@ -89,6 +90,7 @@ typedef struct s_game
 void	get_file(char *map, t_game *game);
 void 	parse_map(t_game *game);
 void	square_map(t_game *game);
-void	game_init(t_game *game);
+void	game_loop(t_game *game);
+void	open_img(t_game *game);
 
 #endif
