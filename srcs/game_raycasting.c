@@ -89,9 +89,9 @@ void	raycasting(t_game *game)
       		if (drawEnd >= h || drawEnd < 0)
 			  	drawEnd = h;
 			if(side == 1)
-				verline(x, drawStart, drawEnd, 0xCD5C5C, game);
+				verline(x, drawStart, drawEnd, 0x800080, game);
 			else
-				verline(x , drawStart, drawEnd, 0xF08080, game);
+				verline(x , drawStart, drawEnd, (0xFFFFFF / 2), game);
 		}
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 }
