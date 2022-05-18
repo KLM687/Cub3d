@@ -42,6 +42,14 @@ int render_next_frame(t_game *game)
 	return (1);
 }
 
+int 	color_get(t_img *img, int x, int y)
+{
+	int rep = (x * img->line_l) / 4 + y;
+	int ret;
+	ret = create_rgb(img->addr[rep], img->addr[rep + 1], img->addr[rep + 2]);
+	return (ret);
+}
+
 void	game_loop(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
@@ -52,10 +60,9 @@ void	game_loop(t_game *game)
 	game->player.dirX = -1;
 	game->player.dirY = 0;
 	game->player.pa = 0;
+
 	
 	open_img(game);
-	
-	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 
 	mlx_loop_hook(game->mlx.mlx, &render_next_frame , game);
 	mlx_hook(game->mlx.windows, 2, 1L<<0 , input, game);

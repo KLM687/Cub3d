@@ -96,7 +96,8 @@ void	open_img(t_game *game);
 void	raycasting(t_game *game);
 void 	verline(int x, int drawStart, int drawEnd, int side, int texX, int texY, t_game *game);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-int		img_pix_get(t_img *img, int x, int y);
+unsigned int		img_pix_get(t_img *img, int x, int y);
+int	create_rgb(int r, int g, int b);
 int 	input(int key, t_game *game);
 
 #endif

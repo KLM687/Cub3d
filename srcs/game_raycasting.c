@@ -117,8 +117,7 @@ void	raycasting(t_game *game)
     		{
         		int texY = (int)texPos & (tex_size - 1);
         		texPos += step;
-				my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->EA, texX, texY));
-        		//Uint32 color = texture[texNum][texHeight * texY + texX];
+				my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->WE, texX, texY));
       		}
 			while (drawEnd < 1280)
 			{
@@ -127,4 +126,5 @@ void	raycasting(t_game *game)
 			}
 		}
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
+
 }

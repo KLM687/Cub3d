@@ -12,13 +12,19 @@
 
 #include "Cub3D.h"
 
-int	img_pix_get(t_img *img, int x, int y)
+unsigned int	img_pix_get(t_img *img, int x, int y)
 {
 	char    *pixel;
+	char    *pixel1;
+	char    *pixel2;
 
     pixel = img->addr + (y * img->line_l + x * (img->byte_p / 8));
-	
-	return (ft_atoi(pixel));
+    pixel1 = img->addr + (y * img->line_l + x * (img->byte_p / 8));
+    pixel2 = img->addr + (y * img->line_l + x * (img->byte_p / 8));
+	pixel1++;
+	pixel += 2;
+
+	return ((*(int *)pixel << 16 | *(int *)pixel1 << 8 | *(int *)pixel2));
 }
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
