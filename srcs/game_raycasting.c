@@ -88,11 +88,43 @@ void	raycasting(t_game *game)
       		int drawEnd = lineHeight / 2 + h / 2;
       		if (drawEnd >= h || drawEnd < 0)
 			  	drawEnd = h;
-			if(side == 1)
-				verline(x, drawStart, drawEnd, side, game);
-			else
-				verline(x , drawStart, drawEnd, side, game);
+			
+
+			double wallX; //where exactly the wall was hit
+      		if (side == 0) 
+				wallX = game->player.posY + perpWallDist * rayDirY;
+      		else           
+			  	wallX = game->player.posX + perpWallDist * rayDirX;
+      		wallX -= floor((wallX));
+
+      		int texX = (int)(wallX * (double)tex_size);
+      		if(side == 0 && rayDirX > 0) 
+				texX = tex_size - texX - 1;
+      		if(side == 1 && rayDirY < 0) 
+				texX = tex_size - texX - 1;
+			
+			double step = 1.0 * tex_size / lineHeight;
+    		double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
+			int sky;
+
+			sky = 0;
+			while(sky < drawStart)
+			{
+				my_mlx_pixel_put(&game->windows, x, sky, game->texture.s_rgb);
+				sky++;
+			}
+			for(int y = drawStart; y<drawEnd; y++)
+    		{
+        		int texY = (int)texPos & (tex_size - 1);
+        		texPos += step;
+				my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->EA, texX, texY));
+        		//Uint32 color = texture[texNum][texHeight * texY + texX];
+      		}
+			while (drawEnd < 1280)
+			{
+				my_mlx_pixel_put(&game->windows, x, drawEnd, game->texture.f_rgb);
+				drawEnd++;
+			}
 		}
-		printf("%f %f\n",game->player.posX, game->player.posY);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 }
