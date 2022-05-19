@@ -118,14 +118,14 @@ void	raycasting(t_game *game)
         		int texY = (int)texPos & (tex_size - 1);
         		texPos += step;
 
-				if (side == 0 && game->player.dirY > 0)
+				if (side == 0 && mapX >= game->player.posX)
 					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->NO, texX, texY));
-				else if (side == 0 && game->player.dirY > 0)
+				else if (side == 0 && mapX <= game->player.posX)
 					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->SO, texX, texY));
-				else 
+				else if(side == 1 && mapY <= game->player.posY)
 					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->WE, texX, texY));
-				/*else if (side == 1 && game->player.dirX > 0)
-					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->EA, texX, texY));*/
+				else if (side == 1 && mapY >= game->player.posY)
+					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->EA, texX, texY));
       		}
 			while (drawEnd < 1280)
 			{
