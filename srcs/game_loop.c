@@ -39,6 +39,7 @@ void	get_player(t_game *game)
 int render_next_frame(t_game *game)
 {
 	raycasting(game);
+	printf("%f %f\n", (game->player.dirX / 0.1), (game->player.dirY / 0.1));
 	return (1);
 }
 

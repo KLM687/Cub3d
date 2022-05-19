@@ -117,7 +117,15 @@ void	raycasting(t_game *game)
     		{
         		int texY = (int)texPos & (tex_size - 1);
         		texPos += step;
-				my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->WE, texX, texY));
+
+				if (side == 0 && game->player.dirY > 0)
+					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->NO, texX, texY));
+				else if (side == 0 && game->player.dirY > 0)
+					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->SO, texX, texY));
+				else 
+					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->WE, texX, texY));
+				/*else if (side == 1 && game->player.dirX > 0)
+					my_mlx_pixel_put(&game->windows, x, y, img_pix_get(&game->EA, texX, texY));*/
       		}
 			while (drawEnd < 1280)
 			{
@@ -126,5 +134,4 @@ void	raycasting(t_game *game)
 			}
 		}
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
-
 }
