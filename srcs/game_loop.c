@@ -56,11 +56,14 @@ void	game_loop(t_game *game)
 	game->mlx.windows = mlx_new_window(game->mlx.mlx,
 			windows_x, windows_y, "CUB3333333333D");
  
-	get_player(game);
+	/*get_player(game);
 	game->player.dirX = -1;
 	game->player.dirY = 0;
+	game->player.pa = 0;*/
+ 	
+	printf("%f %f\n", game->player.posX, game->player.posY);
+	printf("dirX = %f dirY = %f\n", game->player.dirX, game->player.dirY);
 	game->player.pa = 0;
-
 	
 	open_img(game);
 

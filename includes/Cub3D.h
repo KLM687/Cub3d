@@ -88,16 +88,18 @@ typedef struct s_game
 	t_img		EA;
 }	t_game;
 
-void	get_file(char *map, t_game *game);
-void 	parse_map(t_game *game);
-void	square_map(t_game *game);
-void	game_loop(t_game *game);
-void	open_img(t_game *game);
-void	raycasting(t_game *game);
-void 	verline(int x, int drawStart, int drawEnd, int side, int texX, int texY, t_game *game);
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-unsigned int		img_pix_get(t_img *img, int x, int y);
-int	create_rgb(int r, int g, int b);
-int 	input(int key, t_game *game);
+void			get_file(char *map, t_game *game);
+void 			parse_map(t_game *game);
+void			square_map(t_game *game);
+void			game_loop(t_game *game);
+void			open_img(t_game *game);
+void			raycasting(t_game *game);
+void 			verline(int x, int drawStart, int drawEnd, int side, int texX, int texY, t_game *game);
+void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
+unsigned int	img_pix_get(t_img *img, int x, int y);
+int				create_rgb(int r, int g, int b);
+int 			input(int key, t_game *game);
+void    		parse_wall(t_game *game);
+bool			parse_element(t_game *game);
 
 #endif

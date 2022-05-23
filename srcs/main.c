@@ -22,7 +22,8 @@ int main (int argc, char **argv)
 	get_file(argv[1], game);
 	parse_map(game);
 	square_map(game);
-	game_loop(game);
+	parse_wall(game);
+	//game_loop(game);
 	free(game->texture.EA);
 	free(game->texture.NO);
 	free(game->texture.SO);
