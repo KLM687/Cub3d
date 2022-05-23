@@ -14,31 +14,31 @@
 
 void	move_up(t_game *game)
 {
-	game->player.posX += game->player.dirX * 0.1;
-	game->player.posY += game->player.dirY * 0.1;
+	game->player.posX += game->player.dirX * 0.05;
+	game->player.posY += game->player.dirY * 0.05;
 }
 
 void	move_right(t_game *game)
 {
-    game->player.posX += game->player.dirY * 0.1;
-    game->player.posY -= game->player.dirX * 0.1;
+    game->player.posX += game->player.dirY * 0.02;
+    game->player.posY -= game->player.dirX * 0.02;
 }
 
 void    move_left(t_game *game)
 {
-    game->player.posX -= game->player.dirY * 0.1;
-    game->player.posY += game->player.dirX * 0.1;
+    game->player.posX -= game->player.dirY * 0.02;
+    game->player.posY += game->player.dirX * 0.02;
 }
 
 void    move_down(t_game *game)
 {
-	game->player.posX -= game->player.dirX * 0.1;
-	game->player.posY -= game->player.dirY * 0.1;
+	game->player.posX -= game->player.dirX * 0.05;
+	game->player.posY -= game->player.dirY * 0.05;
 }
 
 void    rotate_right(t_game *game)
 {
-	float rotSpeed = 0.05;
+	float rotSpeed = 0.01;
 	double oldDirX = game->player.dirX;
 	game->player.dirX = game->player.dirX * cos(-rotSpeed) - game->player.dirY * sin(-rotSpeed);
     game->player.dirY = oldDirX * sin(-rotSpeed) + game->player.dirY * cos(-rotSpeed);
@@ -49,7 +49,7 @@ void    rotate_right(t_game *game)
 
 void    rotate_left(t_game *game)
 {
-	float rotSpeed = 0.05;
+	float rotSpeed = 0.01;
 	double oldDirX = game->player.dirX;
 	game->player.dirX = game->player.dirX * cos(rotSpeed) - game->player.dirY * sin(rotSpeed);
     game->player.dirY = oldDirX * sin(rotSpeed) + game->player.dirY * cos(rotSpeed);

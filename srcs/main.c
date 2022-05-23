@@ -23,7 +23,7 @@ int main (int argc, char **argv)
 	parse_map(game);
 	square_map(game);
 	parse_wall(game);
-	//game_loop(game);
+	game_loop(game);
 	free(game->texture.EA);
 	free(game->texture.NO);
 	free(game->texture.SO);
