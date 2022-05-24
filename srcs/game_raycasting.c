@@ -133,7 +133,5 @@ void	raycasting(t_game *game)
 				drawEnd++;
 			}
 		}
-		printf("dirX = %f dirY = %f\n", game->player.dirX, game->player.dirY);
-		printf("planeX = %f planeY = %f\n", game->player.planeX, game->player.planeY);
 		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 }

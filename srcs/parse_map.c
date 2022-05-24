@@ -12,6 +12,24 @@
 
 #include "Cub3D.h"
 
+void    player_dir2(t_game *game , char dir)
+{
+    if (dir == 'W')
+    {
+        game->player.dirX = 0;
+        game->player.dirY = -1;
+        game->player.planeX = -0.66;
+        game->player.planeY = 0;
+    }
+    if (dir == 'E')
+    {
+        game->player.dirX = 0;
+        game->player.dirY = 1;
+        game->player.planeX = 0.66;
+        game->player.planeY = 0;
+    }
+}
+
 void    player_dir(t_game *game, char dir)
 {
     if (dir == 'N')
@@ -28,20 +46,7 @@ void    player_dir(t_game *game, char dir)
         game->player.planeX = 0;
         game->player.planeY = -0.66;
     }
-    if (dir == 'W')
-    {
-        game->player.dirX = 0;
-        game->player.dirY = -1;
-        game->player.planeX = -0.66;
-        game->player.planeY = 0;
-    }
-    if (dir == 'E')
-    {
-        game->player.dirX = 0;
-        game->player.dirY = 1;
-        game->player.planeX = 0;
-        game->player.planeY = 0.66;
-    }
+    player_dir2(game, dir);
 }
 
 bool    check_character(t_game *game, int x, int y, char c)

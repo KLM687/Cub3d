@@ -58,16 +58,21 @@ void	set_background(int a, t_game *game, char *l)
 	free(tmp);
 }
 
-void	set_texture(int a, t_game *game, char *l)
+void	set_texture(int a, t_game *game, char *str)
 {
+	int i;
+
+	i = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
 	if(a == 0)
-		game->texture.NO = ft_substr(l, 3, (ft_strlen(l) - 4));
+		game->texture.NO = ft_substr(str, i, (ft_strlen(str) - 4));
 	if(a == 1)
-		game->texture.SO = ft_substr(l, 3, (ft_strlen(l) - 4));
+		game->texture.SO = ft_substr(str, i, (ft_strlen(str) - 4));
 	if(a == 2)
-		game->texture.WE = ft_substr(l, 3, (ft_strlen(l) - 4));
+		game->texture.WE = ft_substr(str, i, (ft_strlen(str) - 4));
 	if(a == 3)
-		game->texture.EA = ft_substr(l, 3, (ft_strlen(l) - 4));
+		game->texture.EA = ft_substr(str, i, (ft_strlen(str) - 4));
 }
 
 bool	line_is_empty(char *str)
@@ -84,6 +89,21 @@ bool	line_is_empty(char *str)
 	return (1);
 }
 
+int search_id(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i])
+	{
+		if (str[i] == 'N' || (str[i] == 'N' && str[i + 1] == 'O'))
+			return (0);
+	}
+}
+
+
 void	parse_texture(t_game *game)
 {
 	int i;
@@ -93,17 +113,17 @@ void	parse_texture(t_game *game)
 	ctrl = 1;
 	while(game->map.map[i] && ctrl < 7)
 	{
-		if(ft_strncmp(game->map.map[i], "NO",  2) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 0 && ++ctrl)
 			set_texture(0, game, game->map.map[i]);
-		if(ft_strncmp(game->map.map[i], "SO",  2) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 1 && ++ctrl)
 			set_texture(1, game, game->map.map[i]);
-		if(ft_strncmp(game->map.map[i], "WE",  2) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 2 && ++ctrl)
 			set_texture(2, game, game->map.map[i]);
-		if(ft_strncmp(game->map.map[i], "EA",  2) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 3 && ++ctrl)
 			set_texture(3, game, game->map.map[i]);
-		if(ft_strncmp(game->map.map[i], "F",  1) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 4 && ++ctrl)
 			set_background(0, game, game->map.map[i]);
-		if(ft_strncmp(game->map.map[i], "C",  1) == 0 && ++ctrl)
+		if(search_id(game->map.map[i]) == 5 && ++ctrl)
 			set_background(1, game, game->map.map[i]);
 		i++;
 	}
