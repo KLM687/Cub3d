@@ -1,8 +1,13 @@
 NO ./img/bluestone.xpm
+    
+    
+                    SO ./img/colorstone.xpm
+                F 0,128,0
+    WE  ./img/eagle.xpm
+        C 0,128,128 
+        
+        EA   ./img/redbrick.xpm
 
-
-C 0,128,128
-F 0,128,0
 11   1      1
 101 101    101     1111
 11111111    1      10001
