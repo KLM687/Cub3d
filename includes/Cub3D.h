@@ -121,7 +121,6 @@ void			square_map(t_game *game);
 void			game_loop(t_game *game);
 void			open_img(t_game *game);
 void			raycasting(t_game *game);
-void 			verline(int x, int drawStart, int drawEnd, int side, int texX, int texY, t_game *game);
 void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
 unsigned int	img_pix_get(t_img *img, int x, int y);
 int				create_rgb(int r, int g, int b);
@@ -129,5 +128,11 @@ int 			input(int key, t_game *game);
 void    		parse_wall(t_game *game);
 bool			parse_element(t_game *game);
 bool			check_move(t_game *game);
+void			verline(t_game *game, int x, int sky);
+void			ray_draw(t_game *game);
+void			ray_hit(t_game *game);
+void			ray_sideDist(t_game *game);
+void			ray_init(t_game *game, int x);
+int				free_and_destroy(t_game *game);
 
 #endif

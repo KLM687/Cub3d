@@ -101,7 +101,7 @@ void    rotate_left(t_game *game)
 int	input(int key, t_game *game)
 {
 	if (key == 65307)
-		printf("FREEEEE on PROOOOOGREEESS\n");
+		free_and_destroy(game);
 	else if (key == 97)
 		move_left(game);
 	else if (key == 119)

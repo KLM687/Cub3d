@@ -35,28 +35,39 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void 	verline(int x, int raycastingStart, int raycastingEnd, int side, int texX, int texY, t_game *game)
+void 	put_tex(t_game *game, int x)
 {
-	int sky;
+	if (game->ray.side == 0 && game->ray.mapX >= game->player.posX)
+		my_mlx_pixel_put(&game->windows, x, game->ray.drawStart, 
+			img_pix_get(&game->NO, game->ray.texX, game->ray.texY));
+	else if (game->ray.side == 0 && game->ray.mapX <= game->player.posX)
+		my_mlx_pixel_put(&game->windows, x, game->ray.drawStart, 
+			img_pix_get(&game->SO, game->ray.texX, game->ray.texY));
+	else if(game->ray.side == 1 && game->ray.mapY <= game->player.posY)
+		my_mlx_pixel_put(&game->windows, x, game->ray.drawStart, 
+			img_pix_get(&game->WE, game->ray.texX, game->ray.texY));
+	else if (game->ray.side == 1 && game->ray.mapY >= game->player.posY)
+		my_mlx_pixel_put(&game->windows, x, game->ray.drawStart, 
+			img_pix_get(&game->EA, game->ray.texX, game->ray.texY));
+}
 
-	side *= 1;
-	sky = 0;
-	texX *= 1;
-	texY *= 1;
-	while(sky < raycastingStart)
+void	verline(t_game *game, int x, int sky)
+{
+	while(sky < game->ray.drawStart)
 	{
 		my_mlx_pixel_put(&game->windows, x, sky, game->texture.s_rgb);
 		sky++;
 	}
-	while (raycastingStart < raycastingEnd)
+	while(game->ray.drawStart < game->ray.drawEnd)
+    {
+    	game->ray.texY = (int)game->ray.texPos & (tex_size - 1);
+        game->ray.texPos += game->ray.step;
+		put_tex(game, x);
+		game->ray.drawStart++;
+    }
+	while (game->ray.drawEnd < windows_y)
 	{
-		
-		my_mlx_pixel_put(&game->windows, x, sky, game->texture.s_rgb);
-		raycastingStart++;
-	}
-	while (raycastingEnd < 1280)
-	{
-		my_mlx_pixel_put(&game->windows, x, raycastingStart, game->texture.f_rgb);
-		raycastingEnd++;
+		my_mlx_pixel_put(&game->windows, x, game->ray.drawEnd, game->texture.f_rgb);
+		game->ray.drawEnd++;
 	}
 }
