@@ -14,26 +14,66 @@
 
 void	move_up(t_game *game)
 {
+	float tmpX;
+	float tmpY;
+
+	tmpX = game->player.posX;
+	tmpY = game->player.posY;
 	game->player.posX += game->player.dirX * 0.05;
 	game->player.posY += game->player.dirY * 0.05;
+	if (!check_move(game))
+	{
+		game->player.posX = tmpX;
+		game->player.posY = tmpY;
+	}
 }
 
 void	move_right(t_game *game)
 {
+	float tmpX;
+	float tmpY;
+
+	tmpX = game->player.posX;
+	tmpY = game->player.posY;
     game->player.posX += game->player.dirY * 0.02;
     game->player.posY -= game->player.dirX * 0.02;
-}
+	if (!check_move(game))
+	{
+		game->player.posX = tmpX;
+		game->player.posY = tmpY;
+	}
+}	
 
 void    move_left(t_game *game)
 {
+	float tmpX;
+	float tmpY;
+
+	tmpX = game->player.posX;
+	tmpY = game->player.posY;
     game->player.posX -= game->player.dirY * 0.02;
     game->player.posY += game->player.dirX * 0.02;
+	if (!check_move(game))
+	{
+		game->player.posX = tmpX;
+		game->player.posY = tmpY;
+	}
 }
 
 void    move_down(t_game *game)
 {
+	float tmpX;
+	float tmpY;
+
+	tmpX = game->player.posX;
+	tmpY = game->player.posY;
 	game->player.posX -= game->player.dirX * 0.05;
 	game->player.posY -= game->player.dirY * 0.05;
+	if (!check_move(game))
+	{
+		game->player.posX = tmpX;
+		game->player.posY = tmpY;
+	}
 }
 
 void    rotate_right(t_game *game)
@@ -60,7 +100,6 @@ void    rotate_left(t_game *game)
 
 int	input(int key, t_game *game)
 {
-	usleep(500);
 	if (key == 65307)
 		printf("FREEEEE on PROOOOOGREEESS\n");
 	else if (key == 97)

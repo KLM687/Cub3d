@@ -27,6 +27,32 @@
 # define windows_y 	1280
 # define tex_size	64
 
+typedef struct s_ray
+{
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+    double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	double step;
+	int stepX;
+    int stepY;
+	int hit;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+	double wallX;
+	int texX;
+	int texY;
+	double texPos;
+	int	side;
+}	t_ray;
+
 typedef struct s_map
 {
 	char **map;
@@ -86,6 +112,7 @@ typedef struct s_game
 	t_img		SO;
 	t_img		WE;
 	t_img		EA;
+	t_ray		ray;
 }	t_game;
 
 void			get_file(char *map, t_game *game);
@@ -101,5 +128,6 @@ int				create_rgb(int r, int g, int b);
 int 			input(int key, t_game *game);
 void    		parse_wall(t_game *game);
 bool			parse_element(t_game *game);
+bool			check_move(t_game *game);
 
 #endif

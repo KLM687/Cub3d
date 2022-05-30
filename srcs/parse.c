@@ -160,10 +160,4 @@ void	parse_map(t_game *game)
 	game->texture.sky[1] = -1;
 	game->texture.sky[2] = -1;
 	parse_texture(game);
-	printf("NO = %s\n", game->texture.NO);
-	printf("SO = %s\n", game->texture.SO);
-	printf("WE = %s\n", game->texture.WE);
-	printf("EA = %s\n", game->texture.EA);
-	printf("sky %d,%d,%d\n", game->texture.sky[0], game->texture.sky[1], game->texture.sky[2]);
-	printf("floor %d,%d,%d\n", game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
 }
