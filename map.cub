@@ -4,7 +4,6 @@ NO ./img/bluestone.xpm
                     SO ./img/colorstone.xpm
                 F 0,128,0
     WE  ./img/eagle.xpm
-        C 0,128,128 
         
         EA   ./img/redbrick.xpm
 

@@ -19,10 +19,18 @@ int main (int argc, char **argv)
 	if(argc != 2)
 		return (0);
 	game = malloc(sizeof(t_game));
+	if (!game)
+		return (0);
 	get_file(argv[1], game);
 	parse_map(game);
 	square_map(game);
 	parse_wall(game);
 	game_loop(game);
+	free(game->texture.EA);
+	free(game->texture.NO);
+	free(game->texture.SO);
+	free(game->texture.WE);
+	ft_free_tab(game->map.map);
+	free(game);
 	return (0);
 }
