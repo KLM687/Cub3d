@@ -21,13 +21,13 @@ OBJS_BONUS		=	${addprefix srcs/bonus/,${SRCS_BONUS:.c=.o}}
 
 LD_FLAGS		=	-L libft -L mlx
 
-MLX_FLAGS		=	-lm -lmlx -lXext -lX11
+MLX_FLAGS		=	-lm -lmlx -lXext -lX11 
 
-HEAD			=	-I includes -I libft -I mlx
+HEAD			=	-O3 -I includes -I libft -I mlx 
 
-CC				=	clang
+CC				=	clang 
 
-CFLAGS			=	-Wall -Werror -Wextra -g3
+CFLAGS			=	-Wall -Werror -Wextra 
 
 .c.o			:
 					${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}

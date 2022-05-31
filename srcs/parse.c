@@ -127,7 +127,7 @@ int search_id(t_game *game, char *str)
 }
 
 
-void	parse_texture(t_game *game)
+bool	parse_texture(t_game *game)
 {
 	int i;
 	int ctrl;
@@ -142,13 +142,34 @@ void	parse_texture(t_game *game)
 			ctrl++;
 		i++;
 	}
-	if(ctrl == 7)
+	if(ctrl != 7)
+		return (0);
+	while (line_is_empty(game->map.map[i]))
+		i++;
+	if (ft_size(game->map.map) != i)
+		game->map.map = ft_popTab(game->map.map, i);
+	return (1);
+}
+
+bool	check_info(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (game->texture.floor[i])
 	{
-		while (line_is_empty(game->map.map[i]))
-			i++;
-		if (ft_size(game->map.map) != i)
-			game->map.map = ft_popTab(game->map.map, i);
+		if(game->texture.floor[i] < 0 || game->texture.floor[i] > 255)
+			return (0);
+		i++; 
 	}
+	i = 0;
+	while (game->texture.sky[i])
+	{
+		if(game->texture.sky[i] < 0 || game->texture.sky[i] > 255)
+			return (0);
+		i++; 
+	}
+	return(1);
 }
 
 void	parse_map(t_game *game)
@@ -159,5 +180,15 @@ void	parse_map(t_game *game)
 	game->texture.sky[0] = -1;
 	game->texture.sky[1] = -1;
 	game->texture.sky[2] = -1;
-	parse_texture(game);
+	if (!parse_texture(game))
+	{
+		printf("%d %d %d\n", game->texture.sky[0],game->texture.sky[1],game->texture.sky[2]);
+		free_parse(game);
+		return (printf("Problem in texture info\n"), exit (0));
+	}
+	if (!check_info(game))
+	{
+		free_parse(game);
+		exit (0);
+	}
 }

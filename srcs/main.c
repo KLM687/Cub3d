@@ -26,11 +26,5 @@ int main (int argc, char **argv)
 	square_map(game);
 	parse_wall(game);
 	game_loop(game);
-	free(game->texture.EA);
-	free(game->texture.NO);
-	free(game->texture.SO);
-	free(game->texture.WE);
-	ft_free_tab(game->map.map);
-	free(game);
 	return (0);
 }

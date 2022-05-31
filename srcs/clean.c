@@ -12,6 +12,16 @@
 
 #include "Cub3D.h"
 
+void	free_parse(t_game *game)
+{
+	free(game->texture.EA);
+	free(game->texture.NO);
+	free(game->texture.SO);
+	free(game->texture.WE);
+	ft_free_tab(game->map.map);
+	free(game);
+}
+
 int	free_and_destroy(t_game *game)
 {
 	mlx_destroy_image(game->mlx.mlx, game->NO.img);

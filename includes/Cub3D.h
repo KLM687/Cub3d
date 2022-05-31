@@ -134,5 +134,6 @@ void			ray_hit(t_game *game);
 void			ray_sideDist(t_game *game);
 void			ray_init(t_game *game, int x);
 int				free_and_destroy(t_game *game);
+void			free_parse(t_game *game);
 
 #endif

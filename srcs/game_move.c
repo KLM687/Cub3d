@@ -78,7 +78,7 @@ void    move_down(t_game *game)
 
 void    rotate_right(t_game *game)
 {
-	float rotSpeed = 0.01;
+	float rotSpeed = 0.05;
 	double oldDirX = game->player.dirX;
 	game->player.dirX = game->player.dirX * cos(-rotSpeed) - game->player.dirY * sin(-rotSpeed);
     game->player.dirY = oldDirX * sin(-rotSpeed) + game->player.dirY * cos(-rotSpeed);
