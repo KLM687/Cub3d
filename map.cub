@@ -1,9 +1,9 @@
 NO ./img/bluestone.xpm
 
-        C             0,128,0  
+        C             10,10,200  
     
                     SO ./img/colorstone.xpm
-                F 0,128,0
+                F 250,200,100
     WE  ./img/eagle.xpm
         
         EA   ./img/redbrick.xpm
