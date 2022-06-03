@@ -6,8 +6,16 @@ NO ./img/bluestone.xpm
                 F 250,200,100
     WE  ./img/eagle.xpm
         
-        EA   ./img/redbrick.xpm
+                                                            EA   ./img/redbrick.xpm
+
+
 11111
 100101
-100W01
-11111
+100W01   1111    11
+11111    1001   1  1  1
+         1111    11
+
+
+
+
+
