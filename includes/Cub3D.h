@@ -135,5 +135,9 @@ void			ray_sideDist(t_game *game);
 void			ray_init(t_game *game, int x);
 int				free_and_destroy(t_game *game);
 void			free_parse(t_game *game);
+char			*whitespace(char *str);
+bool			str_is_digit(char **str);
+bool			line_is_empty(char *str);
+bool			check_info(t_game *game);
 
 #endif

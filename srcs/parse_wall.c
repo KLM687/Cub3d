@@ -86,11 +86,23 @@ bool    check_side(t_game *game)
 void    parse_wall(t_game *game)
 {
     if (!parse_element(game))
-        printf("\nPUTAIN\n");
+    {
+        free_parse(game);
+		return (printf("Problem in element\n"), exit (0));
+    }
     if (!check_side(game))
-        printf("\nFUCK\n");
+    {
+        free_parse(game);
+		return (printf("Problem in wall\n"), exit (0));
+    }
     if (!check_in(game))
-        printf("\nFUCK FUCK\n");
-    if (!game->player.posX)
-        printf("\nNOOOO PLAYER\n");
+    {
+        free_parse(game);
+		return (printf("Problem in wall\n"), exit (0));
+    }
+    if (game->player.posX == -1)
+    {
+        free_parse(game);
+		return (printf("Problem in player\n"), exit (0));
+    }
 }

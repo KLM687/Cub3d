@@ -23,11 +23,11 @@ LD_FLAGS		=	-L libft -L mlx
 
 MLX_FLAGS		=	-lm -lmlx -lXext -lX11 
 
-HEAD			=	-O3 -I includes -I libft -I mlx 
+HEAD			=	-I includes -I libft -I mlx 
 
 CC				=	clang 
 
-CFLAGS			=	-Wall -Werror -Wextra 
+CFLAGS			=	-Wall -Werror -Wextra -O3 -g3
 
 .c.o			:
 					${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}

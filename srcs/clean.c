@@ -14,10 +14,14 @@
 
 void	free_parse(t_game *game)
 {
-	free(game->texture.EA);
-	free(game->texture.NO);
-	free(game->texture.SO);
-	free(game->texture.WE);
+	if (game->texture.EA != NULL)
+		free(game->texture.EA);
+	if (game->texture.NO != NULL)
+		free(game->texture.NO);
+	if (game->texture.SO != NULL)
+		free(game->texture.SO);
+	if (game->texture.WE != NULL)
+		free(game->texture.WE);
 	ft_free_tab(game->map.map);
 	free(game);
 }

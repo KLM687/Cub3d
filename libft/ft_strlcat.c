@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	destlen;
-	size_t	srclen;
-	size_t	index;
+	size_t destlen;
+	size_t srclen;
+	size_t index;
 
 	destlen = 0;
 	srclen = ft_strlen(src);
