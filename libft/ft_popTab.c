@@ -20,6 +20,8 @@ char	**ft_popTab(char **tab, int i)
 
 	size = ft_size(tab);
 	pop = malloc(sizeof(char *) * (size - i + 1));
+	if (!pop)
+		return (NULL);
 	a = 0;
 	while (i < size)
 	{

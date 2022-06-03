@@ -51,6 +51,8 @@ void	get_file(char *map, t_game *game)
 	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
     map_ret = malloc(sizeof(char *) * (i + 1));
+	if (!map_ret)
+		return ;
     i = 0;
 	while (line)
 	{

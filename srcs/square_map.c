@@ -57,6 +57,8 @@ void	square_map(t_game *game)
 	while (game->map.map[i])
 	{
 		str = malloc(sizeof(char) * (longest + 1));
+		if (!str)
+			return ;
 		ft_memset(str, ' ', longest);
 		str = cpy(str, game->map.map[i]);
 		free(game->map.map[i]);
