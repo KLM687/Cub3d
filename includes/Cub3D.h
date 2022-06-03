@@ -23,8 +23,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define windows_x 	1920
-# define windows_y 	1280
+# define windows_x 	1500
+# define windows_y 	1000
 # define tex_size	64
 
 typedef struct s_ray

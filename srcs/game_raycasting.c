@@ -109,13 +109,13 @@ void	ray_draw(t_game *game)
 
 void	raycasting(t_game *game)
 {
-	for(int x = 0; x < windows_x; x++)
-    {
-		ray_init(game, x);
-		ray_sideDist(game);
-		ray_hit(game);
-		ray_draw(game);
-		verline(game, x, 0);
-	}
-	mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
+		for(int x = 0; x < windows_x; x++)
+ 		{
+			ray_init(game, x);
+			ray_sideDist(game);
+			ray_hit(game);
+			ray_draw(game);
+			verline(game, x, 0);
+		}
+		mlx_put_image_to_window(game->mlx.mlx, game->mlx.windows, game->windows.img , 0, 0);
 }

@@ -35,8 +35,8 @@ void	move_right(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-    game->player.posX += game->player.dirY * 0.04;
-    game->player.posY -= game->player.dirX * 0.04;
+    game->player.posX += game->player.dirY * 0.02;
+    game->player.posY -= game->player.dirX * 0.02;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;
@@ -51,8 +51,8 @@ void    move_left(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-    game->player.posX -= game->player.dirY * 0.04;
-    game->player.posY += game->player.dirX * 0.04;
+    game->player.posX -= game->player.dirY * 0.02;
+    game->player.posY += game->player.dirX * 0.02;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;
@@ -116,4 +116,3 @@ int	input(int key, t_game *game)
 		rotate_right(game);
 	return (0);
 }
-

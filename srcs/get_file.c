@@ -12,7 +12,14 @@
 
 #include "Cub3D.h"
 
-int	count_line(char *file)
+void 	free_exit(t_game *game)
+{
+	free(game);
+	printf("Problem in file\n"); 
+	exit(0);
+}
+
+int	count_line(char *file, t_game *game)
 {
 	int		fd;
 	int		read_ret;
@@ -21,10 +28,7 @@ int	count_line(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("error fd\n");
-		exit (EXIT_FAILURE);
-	}
+		free_exit(game);
 	x = 1;
 	while (1)
 	{
@@ -47,7 +51,9 @@ void	get_file(char *map, t_game *game)
     char **map_ret;
     int i;
 
-	i = count_line(map);
+	i = count_line(map, game);
+	if (i == -1)
+		free_exit(game);	
 	fd = open(map, O_RDONLY);
 	line = get_next_line(fd);
     map_ret = malloc(sizeof(char *) * (i + 1));

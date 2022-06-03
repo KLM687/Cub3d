@@ -27,7 +27,7 @@ HEAD			=	-I includes -I libft -I mlx
 
 CC				=	clang 
 
-CFLAGS			=	-Wall -Werror -Wextra -O3 -g3
+CFLAGS			=	-Wall -Werror -Wextra
 
 .c.o			:
 					${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}

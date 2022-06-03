@@ -34,6 +34,7 @@ void	game_loop(t_game *game)
  	open_img(game);
 	mlx_loop_hook(game->mlx.mlx, &render_next_frame , game);
 	mlx_hook(game->mlx.windows, 2, 1L<<0 , input, game);
+	mlx_hook(game->mlx.windows, 3, 1L<<1 , input, game);
 	mlx_hook(game->mlx.windows, 33, 1l << 5, free_and_destroy , game);
 	mlx_loop(game->mlx.mlx);
 }
