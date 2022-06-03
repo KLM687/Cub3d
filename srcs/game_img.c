@@ -30,6 +30,14 @@ void	img_addr(t_game *game)
 	game->windows.addr = mlx_get_data_addr(game->windows.img, &game->windows.byte_p, &game->windows.line_l, &game->windows.end);
 }
 
+void	check_img(t_game *game)
+{
+	if (!game->NO.img || !game->EA.img) 
+		clean_img(game);
+	if (!game->SO.img || !game->WE.img || !game->windows.img) 
+		clean_img(game);
+}
+
 void	open_img(t_game *game)
 {
 	game->NO.img = mlx_xpm_file_to_image(game->mlx.mlx,
@@ -41,6 +49,7 @@ void	open_img(t_game *game)
 	game->WE.img = mlx_xpm_file_to_image(game->mlx.mlx,
 			game->texture.WE, &game->WE.byte_p, &game->WE.line_l);
 	game->windows.img = mlx_new_image(game->mlx.mlx, windows_x, windows_y);
+	check_img(game);
 	img_addr(game);
 	game->texture.f_rgb = create_rgb(game->texture.floor[0], game->texture.floor[1], game->texture.floor[2]);
 	game->texture.s_rgb = create_rgb(game->texture.sky[0], game->texture.sky[1], game->texture.sky[2]);

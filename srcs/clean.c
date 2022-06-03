@@ -26,6 +26,26 @@ void	free_parse(t_game *game)
 	free(game);
 }
 
+void clean_img(t_game *game)
+{
+	printf("Problem in texture path !\n");
+	if (game->NO.img)
+		mlx_destroy_image(game->mlx.mlx, game->NO.img);
+	if (game->SO.img)
+		mlx_destroy_image(game->mlx.mlx, game->SO.img);
+	if (game->WE.img)
+		mlx_destroy_image(game->mlx.mlx, game->WE.img);
+	if (game->EA.img)
+		mlx_destroy_image(game->mlx.mlx, game->EA.img);
+	if (game->windows.img)
+   		mlx_destroy_image(game->mlx.mlx, game->windows.img);
+	mlx_destroy_window(game->mlx.mlx, game->mlx.windows);
+	mlx_destroy_display(game->mlx.mlx);
+	free(game->mlx.mlx);
+	free_parse(game);
+	exit (EXIT_SUCCESS);
+}
+
 int	free_and_destroy(t_game *game)
 {
 	mlx_destroy_image(game->mlx.mlx, game->NO.img);

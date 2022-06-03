@@ -61,8 +61,8 @@ bool    check_character(t_game *game, int x, int y, char c)
             game->player.posX = -1;
             return (0);
         }
-        game->player.posX = x;
-        game->player.posY = y;
+        game->player.posX = x + 0.5;
+        game->player.posY = y + 0.5;
         player_dir(game, game->map.map[x][y]);
     }
     return (1);

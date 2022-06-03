@@ -139,5 +139,7 @@ char			*whitespace(char *str);
 bool			str_is_digit(char **str);
 bool			line_is_empty(char *str);
 bool			check_info(t_game *game);
+bool			check_void(t_game *game);
+void			clean_img(t_game *game);
 
 #endif

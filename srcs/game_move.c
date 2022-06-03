@@ -19,8 +19,8 @@ void	move_up(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-	game->player.posX += game->player.dirX * 0.05;
-	game->player.posY += game->player.dirY * 0.05;
+	game->player.posX += game->player.dirX * 0.04;
+	game->player.posY += game->player.dirY * 0.04;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;
@@ -35,8 +35,8 @@ void	move_right(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-    game->player.posX += game->player.dirY * 0.05;
-    game->player.posY -= game->player.dirX * 0.05;
+    game->player.posX += game->player.dirY * 0.04;
+    game->player.posY -= game->player.dirX * 0.04;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;
@@ -51,8 +51,8 @@ void    move_left(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-    game->player.posX -= game->player.dirY * 0.05;
-    game->player.posY += game->player.dirX * 0.05;
+    game->player.posX -= game->player.dirY * 0.04;
+    game->player.posY += game->player.dirX * 0.04;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;
@@ -67,8 +67,8 @@ void    move_down(t_game *game)
 
 	tmpX = game->player.posX;
 	tmpY = game->player.posY;
-	game->player.posX -= game->player.dirX * 0.05;
-	game->player.posY -= game->player.dirY * 0.05;
+	game->player.posX -= game->player.dirX * 0.04;
+	game->player.posY -= game->player.dirY * 0.04;
 	if (!check_move(game))
 	{
 		game->player.posX = tmpX;

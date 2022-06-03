@@ -19,7 +19,7 @@ int	ft_size(char **tab)
 	i = 0;
 	if (tab)
 	{
-		while(tab[i])
+		while(tab[i] != NULL)
 			i++;
 	}
 	return (i); 

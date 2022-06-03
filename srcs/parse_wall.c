@@ -105,4 +105,9 @@ void    parse_wall(t_game *game)
         free_parse(game);
 		return (printf("Problem in player\n"), exit (0));
     }
+    if (!check_void(game))
+    {
+        free_parse(game);
+		return (printf("Problem in empty space\n"), exit (0));
+    }
 }
