@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_move.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:02:15 by flee              #+#    #+#             */
-/*   Updated: 2022/05/16 14:02:16 by flee             ###   ########.fr       */
+/*   Updated: 2022/06/07 21:20:14 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,105 +14,83 @@
 
 void	move_up(t_game *game)
 {
-	float tmpX;
-	float tmpY;
+	float	tmp_x;
+	float	tmp_y;
 
-	tmpX = game->player.posX;
-	tmpY = game->player.posY;
-	game->player.posX += game->player.dirX * 0.04;
-	game->player.posY += game->player.dirY * 0.04;
+	tmp_x = game->player.pos_x;
+	tmp_y = game->player.pos_y;
+	game->player.pos_x += game->player.dir_x * 0.04;
+	game->player.pos_y += game->player.dir_y * 0.04;
 	if (!check_move(game))
 	{
-		game->player.posX = tmpX;
-		game->player.posY = tmpY;
+		game->player.pos_x = tmp_x;
+		game->player.pos_y = tmp_y;
 	}
 }
 
 void	move_right(t_game *game)
 {
-	float tmpX;
-	float tmpY;
+	float	tmp_x;
+	float	tmp_y;
 
-	tmpX = game->player.posX;
-	tmpY = game->player.posY;
-    game->player.posX += game->player.dirY * 0.02;
-    game->player.posY -= game->player.dirX * 0.02;
+	tmp_x = game->player.pos_x;
+	tmp_y = game->player.pos_y;
+	game->player.pos_x += game->player.dir_y * 0.02;
+	game->player.pos_y -= game->player.dir_x * 0.02;
 	if (!check_move(game))
 	{
-		game->player.posX = tmpX;
-		game->player.posY = tmpY;
-	}
-}	
-
-void    move_left(t_game *game)
-{
-	float tmpX;
-	float tmpY;
-
-	tmpX = game->player.posX;
-	tmpY = game->player.posY;
-    game->player.posX -= game->player.dirY * 0.02;
-    game->player.posY += game->player.dirX * 0.02;
-	if (!check_move(game))
-	{
-		game->player.posX = tmpX;
-		game->player.posY = tmpY;
+		game->player.pos_x = tmp_x;
+		game->player.pos_y = tmp_y;
 	}
 }
 
-void    move_down(t_game *game)
+void	move_left(t_game *game)
 {
-	float tmpX;
-	float tmpY;
+	float	tmp_x;
+	float	tmp_y;
 
-	tmpX = game->player.posX;
-	tmpY = game->player.posY;
-	game->player.posX -= game->player.dirX * 0.04;
-	game->player.posY -= game->player.dirY * 0.04;
+	tmp_x = game->player.pos_x;
+	tmp_y = game->player.pos_y;
+	game->player.pos_x -= game->player.dir_y * 0.02;
+	game->player.pos_y += game->player.dir_x * 0.02;
 	if (!check_move(game))
 	{
-		game->player.posX = tmpX;
-		game->player.posY = tmpY;
+		game->player.pos_x = tmp_x;
+		game->player.pos_y = tmp_y;
 	}
 }
 
-void    rotate_right(t_game *game)
+void	move_down(t_game *game)
 {
-	float rotSpeed = 0.02;
-	double oldDirX = game->player.dirX;
-	game->player.dirX = game->player.dirX * cos(-rotSpeed) - game->player.dirY * sin(-rotSpeed);
-    game->player.dirY = oldDirX * sin(-rotSpeed) + game->player.dirY * cos(-rotSpeed);
-    double oldPlaneX = game->player.planeX;
-    game->player.planeX = game->player.planeX * cos(-rotSpeed) - game->player.planeY * sin(-rotSpeed);
-    game->player.planeY = oldPlaneX * sin(-rotSpeed) + game->player.planeY * cos(-rotSpeed);
+	float	tmp_x;
+	float	tmp_y;
+
+	tmp_x = game->player.pos_x;
+	tmp_y = game->player.pos_y;
+	game->player.pos_x -= game->player.dir_x * 0.04;
+	game->player.pos_y -= game->player.dir_y * 0.04;
+	if (!check_move(game))
+	{
+		game->player.pos_x = tmp_x;
+		game->player.pos_y = tmp_y;
+	}
 }
 
-void    rotate_left(t_game *game)
+void	rotate_right(t_game *game)
 {
-	float rotSpeed = 0.02;
-	double oldDirX = game->player.dirX;
-	game->player.dirX = game->player.dirX * cos(rotSpeed) - game->player.dirY * sin(rotSpeed);
-    game->player.dirY = oldDirX * sin(rotSpeed) + game->player.dirY * cos(rotSpeed);
-    double oldPlaneX = game->player.planeX;
-    game->player.planeX = game->player.planeX * cos(rotSpeed) - game->player.planeY * sin(rotSpeed);
-    game->player.planeY = oldPlaneX * sin(rotSpeed) + game->player.planeY * cos(rotSpeed);
-}
+	float	rot_speed;
+	double	olddir_x;
+	double	oldplane_x;
 
-int	input(int key, t_game *game)
-{
-	if (key == 65307)
-		free_and_destroy(game);
-	else if (key == 97)
-		move_left(game);
-	else if (key == 119)
-		move_up(game);
-	else if (key == 115)
-		move_down(game);
-	else if (key == 100)
-		move_right(game);
-	else if (key == 65361)
-		rotate_left(game);
-	else if (key == 65363)
-		rotate_right(game);
-	return (0);
+	rot_speed = 0.02;
+	olddir_x = game->player.dir_x;
+	oldplane_x = game->player.plane_x;
+	game->player.dir_x = game->player.dir_x * cos(-rot_speed)
+		- game->player.dir_y * sin(-rot_speed);
+	game->player.dir_y = olddir_x * sin(-rot_speed)
+		+ game->player.dir_y * cos(-rot_speed);
+	game->player.plane_x = game->player.plane_x * cos(-rot_speed)
+		- game->player.plane_y * sin(-rot_speed);
+	game->player.plane_y = oldplane_x * sin(-rot_speed)
+		+ game->player.plane_y * cos(-rot_speed);
 }

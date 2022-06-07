@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 09:21:10 by flee              #+#    #+#             */
-/*   Updated: 2022/05/30 09:21:23 by flee             ###   ########.fr       */
+/*   Created: 2022/06/07 21:32:32 by abensett          #+#    #+#             */
+/*   Updated: 2022/06/07 21:33:50 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 bool	check_move(t_game *game)
 {
-	if (game->map.map[(int)game->player.posX][(int)game->player.posY] == '1')
+	if (game->map.map[(int)game->player.pos_x][(int)game->player.pos_y] == '1')
 		return (0);
 	return (1);
 }
 
-char *whitespace(char *str)
+char	*whitespace(char *str)
 {
-	int i; 
-	
+	int	i;
+
 	i = 0;
 	while (str[i])
 	{
@@ -35,14 +35,14 @@ char *whitespace(char *str)
 
 bool	str_is_digit(char **str)
 {
-	int i;
-	int a;
+	int	i;
+	int	a;
 
 	i = 0;
 	while (str[i])
 	{
 		a = 0;
-		while(str[i][a])
+		while (str[i][a])
 		{
 			if (!ft_isdigit(str[i][a]))
 				return (0);
@@ -55,7 +55,7 @@ bool	str_is_digit(char **str)
 
 bool	line_is_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -69,21 +69,21 @@ bool	line_is_empty(char *str)
 
 bool	check_info(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if(game->texture.floor[i] < 0 || game->texture.floor[i] > 255)
+		if (game->texture.floor[i] < 0 || game->texture.floor[i] > 255)
 			return (0);
-		i++; 
+		i++;
 	}
 	i = 0;
 	while (i < 3)
 	{
-		if(game->texture.sky[i] < 0 || game->texture.sky[i] > 255)
+		if (game->texture.sky[i] < 0 || game->texture.sky[i] > 255)
 			return (0);
-		i++; 
+		i++;
 	}
-	return(1);
+	return (1);
 }

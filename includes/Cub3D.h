@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cub3d.h                                            :+:      :+:    :+:   */
+/*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 11:06:09 by flee              #+#    #+#             */
-/*   Updated: 2022/05/04 11:06:26 by flee             ###   ########.fr       */
+/*   Updated: 2022/06/07 21:42:33 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,65 +23,65 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define windows_x 	1500
-# define windows_y 	1000
-# define tex_size	64
+# define WINDOWS_X 	1500
+# define WINDOWS_Y 	1000
+# define TEX_SIZE	64
 
 typedef struct s_ray
 {
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-    double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
-	double step;
-	int stepX;
-    int stepY;
-	int hit;
-	int lineHeight;
-	int drawStart;
-	int drawEnd;
-	double wallX;
-	int texX;
-	int texY;
-	double texPos;
-	int	side;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	double	step;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	tex_pos;
+	int		side;
 }	t_ray;
 
 typedef struct s_map
 {
-	char **map;
-	int  grid_size;
+	char	**map;
+	int		grid_size;
 }	t_map;
 
 typedef struct s_texture
 {
-	char *NO;
-	char *SO;
-	char *WE;
-	char *EA;
-	int floor[3];
-	int f_rgb;
-	int sky[3];
-	int s_rgb;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		floor[3];
+	int		f_rgb;
+	int		sky[3];
+	int		s_rgb;
 }	t_texture;
 
 typedef struct s_player
 {
-	float posX;
-	float posY;
-	double	dirX;
-	double	dirY;
-	double pa;
-	float planeX;
-	float planeY;
-	int mapX;
-	int mapY;
+	float	pos_x;
+	float	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	pa;
+	float	plane_x;
+	float	plane_y;
+	int		map_x;
+	int		map_y;
 }	t_player;
 
 typedef struct s_mlx
@@ -108,15 +108,15 @@ typedef struct s_game
 	t_texture	texture;
 	t_player	player;
 	t_img		windows;
-	t_img		NO;
-	t_img		SO;
-	t_img		WE;
-	t_img		EA;
+	t_img		north;
+	t_img		south;
+	t_img		west;
+	t_img		east;
 	t_ray		ray;
 }	t_game;
 
 void			get_file(char *map, t_game *game);
-void 			parse_map(t_game *game);
+void			parse_map(t_game *game);
 void			square_map(t_game *game);
 void			game_loop(t_game *game);
 void			open_img(t_game *game);
@@ -124,8 +124,8 @@ void			raycasting(t_game *game);
 void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
 unsigned int	img_pix_get(t_img *img, int x, int y);
 int				create_rgb(int r, int g, int b);
-int 			input(int key, t_game *game);
-void    		parse_wall(t_game *game);
+int				input(int key, t_game *game);
+void			parse_wall(t_game *game);
 bool			parse_element(t_game *game);
 bool			check_move(t_game *game);
 void			verline(t_game *game, int x, int sky);
@@ -141,5 +141,14 @@ bool			line_is_empty(char *str);
 bool			check_info(t_game *game);
 bool			check_void(t_game *game);
 void			clean_img(t_game *game);
+
+//game_move.c game_move2.c
+void			move_up(t_game *game);
+void			move_right(t_game *game);
+void			move_left(t_game *game);
+void			move_down(t_game *game);
+void			rotate_right(t_game *game);
+void			rotate_left(t_game *game);
+int				input(int key, t_game *game);
 
 #endif

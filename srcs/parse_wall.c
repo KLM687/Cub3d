@@ -3,111 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   parse_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:41:24 by flee              #+#    #+#             */
-/*   Updated: 2022/05/16 14:41:26 by flee             ###   ########.fr       */
+/*   Updated: 2022/06/07 21:39:38 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
 
-bool    wall(char **map, int x, int y)
+bool	wall(char **map, int x, int y)
 {
-    if (map[x + 1][y] == ' ' || map[x - 1][y] == ' ' || 
-            map[x][y + 1] == ' ' || map[x][y - 1] == ' ')
-            return (0);
-    return (1);
+	if (map[x + 1][y] == ' ' || map[x - 1][y] == ' ' ||
+			map[x][y + 1] == ' ' || map[x][y - 1] == ' ')
+		return (0);
+	return (1);
 }
 
-bool    check_in(t_game *game)
+bool	check_in(t_game *game)
 {
-    unsigned long x;
-    unsigned long y;
+	unsigned long	x;
+	unsigned long	y;
 
-    x = (ft_size(game->map.map) - 1);
-    while (x > 0)
-    {
-        y = 0;
-        while(y < (ft_strlen(game->map.map[x]) - 1))
-        {
-            if (game->map.map[x][y] == '0')
-            {
-                if (!wall(game->map.map, x, y))
-                    return (0);
-            }
-            y++;
-        }
-        x--;
-    }
-    return (1);
+	x = (ft_size(game->map.map) - 1);
+	while (x > 0)
+	{
+		y = 0;
+		while (y < (ft_strlen(game->map.map[x]) - 1))
+		{
+			if (game->map.map[x][y] == '0')
+			{
+				if (!wall(game->map.map, x, y))
+					return (0);
+			}
+			y++;
+		}
+		x--;
+	}
+	return (1);
 }
 
-bool    check_side2(t_game *game, int x)
+bool	check_side2(t_game *game, int x)
 {
-    int y;
+	int	y;
 
-    y = 0;
-    while (game->map.map[x][y])
-    {
-        if (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1')
-            return (0);
-        y++;
-    }
-    return (1);
+	y = 0;
+	while (game->map.map[x][y])
+	{
+		if (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1')
+			return (0);
+		y++;
+	}
+	return (1);
 }
 
-bool    check_side(t_game *game)
+bool	check_side(t_game *game)
 {
-    int x;
-    int y;
+	int	x;
+	int	y;
 
-    x = 0;
-    y = 0;
-    while (game->map.map[x][y])
-    {
-        if (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1')
-            return (0);
-        y++;
-    }
-    y -= 2;
-    while (game->map.map[x])
-    {
-        if ((game->map.map[x][0] != ' ' && game->map.map[x][0] != '1')
-                || (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1'))
-            return (0);
-        x++;
-    }
-    if (!check_side2(game, --x))
-        return (0);
-    return (1); 
+	x = 0;
+	y = 0;
+	while (game->map.map[x][y])
+	{
+		if (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1')
+			return (0);
+		y++;
+	}
+	y -= 2;
+	while (game->map.map[x])
+	{
+		if ((game->map.map[x][0] != ' ' && game->map.map[x][0] != '1')
+				|| (game->map.map[x][y] != ' ' && game->map.map[x][y] != '1'))
+			return (0);
+		x++;
+	}
+	if (!check_side2(game, --x))
+		return (0);
+	return (1);
 }
 
-void    parse_wall(t_game *game)
+void	parse_wall(t_game *game)
 {
-    if (!parse_element(game))
-    {
-        free_parse(game);
+	if (!parse_element(game))
+	{
+		free_parse(game);
 		return (printf("Problem in element\n"), exit (0));
-    }
-    if (!check_side(game))
-    {
-        free_parse(game);
+	}
+	if (!check_side(game))
+	{
+		free_parse(game);
 		return (printf("Problem in wall\n"), exit (0));
-    }
-    if (!check_in(game))
-    {
-        free_parse(game);
+	}
+	if (!check_in(game))
+	{
+		free_parse(game);
 		return (printf("Problem in wall\n"), exit (0));
-    }
-    if (game->player.posX == -1)
-    {
-        free_parse(game);
+	}
+	if (game->player.pos_x == -1)
+	{
+		free_parse(game);
 		return (printf("Problem in player\n"), exit (0));
-    }
-    if (!check_void(game))
-    {
-        free_parse(game);
+	}
+	if (!check_void(game))
+	{
+		free_parse(game);
 		return (printf("Problem in empty space\n"), exit (0));
-    }
+	}
 }
