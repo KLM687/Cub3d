@@ -6,12 +6,12 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:45:49 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:41:04 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:17:13 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
-
+// initialize structure game with default values
 void	player_dir2(t_game *game, char dir)
 {
 	if (dir == 'W')
@@ -29,7 +29,7 @@ void	player_dir2(t_game *game, char dir)
 		game->player.plane_y = 0;
 	}
 }
-
+// initialize structure game with default values
 void	player_dir(t_game *game, char dir)
 {
 	if (dir == 'N')
@@ -48,7 +48,7 @@ void	player_dir(t_game *game, char dir)
 	}
 	player_dir2(game, dir);
 }
-
+// check if the character is there
 bool	check_character(t_game *game, int x, int y, char c)
 {
 	static int	count;
@@ -67,7 +67,7 @@ bool	check_character(t_game *game, int x, int y, char c)
 	}
 	return (1);
 }
-
+// return 0 if the element is not acceptable else return 1
 bool	check_element(char c)
 {
 	if (c != ' ' && c != '0' && c != '1' && c != 'N'
@@ -75,7 +75,7 @@ bool	check_element(char c)
 		return (0);
 	return (1);
 }
-
+// check if the map is valid return 0 if not else return 1
 bool	parse_element(t_game *game)
 {
 	int	x;

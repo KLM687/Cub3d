@@ -6,12 +6,12 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:49:08 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:00:20 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/16 15:24:41 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
-
+// free map and texture then game
 void	free_parse(t_game *game)
 {
 	if (game->texture.east != NULL)
@@ -25,7 +25,7 @@ void	free_parse(t_game *game)
 	ft_free_tab(game->map.map);
 	free(game);
 }
-
+// destroy images im case of error
 void	clean_img(t_game *game)
 {
 	printf("Problem in texture path !\n");
@@ -45,7 +45,7 @@ void	clean_img(t_game *game)
 	free_parse(game);
 	exit (EXIT_SUCCESS);
 }
-
+// destroy images and windows, free map and texture then game and exit
 int	free_and_destroy(t_game *game)
 {
 	mlx_destroy_image(game->mlx.mlx, game->north.img);
