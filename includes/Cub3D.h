@@ -6,7 +6,7 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 11:06:09 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:42:33 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:27:11 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@
 # define WINDOWS_Y 	1000
 # define TEX_SIZE	64
 
+/*********************************************************************
+- camera_X  	= x-coord. on the camera plane -> left negative right positive
+- ray_dir_x		=
+- map_x, map_y  = the current square of the map the ray is in
+- side_dist_x,y = the distance from its start posi to the first x-side,  y-side
+- delta_dist_x,y= distance from 1 x-side to the next x-side, respectfully y-side
+- perp_wall_dist= used to calculate the length of the ray (dist entre joueur mur)
+- step 			=
+- step_x, step_y= step in x or y-direction (either +1 or -1)
+- hit			= 1 if wall touch else 0
+- side			= 0 si un cote x touche 1 si cote y
+- lineheight	= height of line to draw
+- drawstart		= position of the beginning of the drawing
+- drawend		= self-explanatory
+- wall x		= for all the rays
+ *********************************************************************/
 typedef struct s_ray
 {
 	double	camera_x;
@@ -43,6 +59,7 @@ typedef struct s_ray
 	int		step_x;
 	int		step_y;
 	int		hit;
+	int		side;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
@@ -50,15 +67,24 @@ typedef struct s_ray
 	int		tex_x;
 	int		tex_y;
 	double	tex_pos;
-	int		side;
 }	t_ray;
 
+/*********************************************************************
+-map 			= array of str usef to stock the .cub file
+ *********************************************************************/
 typedef struct s_map
 {
 	char	**map;
 	int		grid_size;
 }	t_map;
 
+/*********************************************************************
+- pox_X,pos_Y  = player position
+- dir_x, dir_y = direction vector
+- pa 		   =
+- plane_x, y   =  2nd raycaster version of camera plane
+- map_x, map_y = the current square of the map the ray is in
+ *********************************************************************/
 typedef struct s_texture
 {
 	char	*north;
@@ -71,6 +97,13 @@ typedef struct s_texture
 	int		s_rgb;
 }	t_texture;
 
+/*********************************************************************
+- pox_X,pos_Y  = player position
+- dir_x, dir_y = direction vector
+- pa 		   =
+- plane_x, y   =  2nd raycaster version of camera plane
+- map_x, map_y = the current square of the map the ray is in
+ *********************************************************************/
 typedef struct s_player
 {
 	float	pos_x;

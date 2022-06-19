@@ -6,12 +6,12 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 13:08:08 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:36:41 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:50:01 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
-
+// check if the map is .cub
 bool	is_cub(char *file)
 {
 	char	*tmp;
@@ -29,6 +29,11 @@ bool	is_cub(char *file)
 	return (free(tmp), (1));
 }
 
+/***************************************
+ get_file -> stock the lines of the file into game->map.map (array of str)
+ parse_map -> extract and check textures and RGB
+ parse_wall ->
+ **************************************/
 int	main(int argc, char **argv)
 {
 	t_game	*game;

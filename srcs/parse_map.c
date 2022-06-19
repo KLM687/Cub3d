@@ -6,7 +6,7 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 15:42:07 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:38:18 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:47:44 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	search_id(t_game *game, char *str)
 	return ((ft_free_tab(line)), (1));
 }
 
+// extract texture and RGB and check map
 bool	parse_texture(t_game *game)
 {
 	int	i;
@@ -104,6 +105,8 @@ bool	parse_texture(t_game *game)
 	return (0);
 }
 
+/* initianalize textures, extract and check textures and RGB for floor
+	and ceiling */
 void	parse_map(t_game *game)
 {
 	game->texture.floor[0] = -1;

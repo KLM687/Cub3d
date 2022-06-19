@@ -6,7 +6,7 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:04:17 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:35:44 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:48:56 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_exit(t_game *game)
 	exit(0);
 }
 
+// count the lines of the files
 int	count_line(char *file, t_game *game)
 {
 	int		fd;
@@ -44,6 +45,7 @@ int	count_line(char *file, t_game *game)
 	return (x);
 }
 
+// open the file and stock it game->map.map which is an array of str
 void	get_file(char *map, t_game *game)
 {
 	int		fd;

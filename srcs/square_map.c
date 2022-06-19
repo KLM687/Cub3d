@@ -6,11 +6,12 @@
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:42:48 by flee              #+#    #+#             */
-/*   Updated: 2022/06/16 15:24:43 by abensett         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:47:11 by abensett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
+
 // copy src into dst
 char	*cpy(char *dest, char *src)
 {
@@ -26,6 +27,7 @@ char	*cpy(char *dest, char *src)
 	}
 	return (dest);
 }
+
 // return longest line in file
 int	longest_str(char **map)
 {
@@ -45,6 +47,7 @@ int	longest_str(char **map)
 	}
 	return (longest);
 }
+
 // square map of the given file by fiding the longest line
 void	square_map(t_game *game)
 {
