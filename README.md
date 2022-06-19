@@ -57,6 +57,8 @@ séparées par un ou plusieurs espace(s).
   
  ![image](https://user-images.githubusercontent.com/85625233/174494615-ce9ef8f3-6858-47d3-8c08-7ff33cb50ff6.png)
  ![image](https://user-images.githubusercontent.com/85625233/174496417-18539e8c-364f-4c3e-b418-6e8446d6c98e.png)
+  ![image](https://user-images.githubusercontent.com/85625233/174496873-7cc5d1cf-2ef3-45ee-801b-a06e0b777bc2.png)
+
 
   > In CGI (computer-generated imagery), ray casting ```is the most basic form of raytracing```. 
   Unlike other forms of ray tracing, where rays originate from a light source and bounce 
