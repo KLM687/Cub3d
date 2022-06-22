@@ -12,9 +12,13 @@
 
 #include "Cub3D.h"
 
-bool	check_move(t_game *game)
+bool	check_move(t_game *game, float tmp_x, float tmp_y)
 {
-	if (game->map.map[(int)game->player.pos_x][(int)game->player.pos_y] == '1')
+	if (game->map.map[(int)tmp_x][(int)tmp_y] == '1')
+		return (0);
+	if (game->map.map[(int)tmp_x][(int)tmp_y] == ' ')
+		return (0);
+	if (game->map.map[(int)tmp_x][(int)tmp_y] == 0)
 		return (0);
 	return (1);
 }

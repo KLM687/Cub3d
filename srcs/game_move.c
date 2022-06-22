@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abensett <abensett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 14:02:15 by flee              #+#    #+#             */
-/*   Updated: 2022/06/07 21:20:14 by abensett         ###   ########.fr       */
+/*   Created: 2022/1/16 14:02:15 by flee              #+#    #+#             */
+/*   Updated: 2022/1/20 08:07:58 by flee             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,65 +14,57 @@
 
 void	move_up(t_game *game)
 {
-	float	tmp_x;
-	float	tmp_y;
+	int	tmp_x;
+	int	tmp_y;
 
-	tmp_x = game->player.pos_x;
-	tmp_y = game->player.pos_y;
-	game->player.pos_x += game->player.dir_x * 0.04;
-	game->player.pos_y += game->player.dir_y * 0.04;
-	if (!check_move(game))
+	tmp_x = game->player.pos_x + game->player.dir_x * 0.2;
+	tmp_y = game->player.pos_y + game->player.dir_y * 0.2;
+	if (check_move(game, tmp_x, tmp_y))
 	{
-		game->player.pos_x = tmp_x;
-		game->player.pos_y = tmp_y;
+		game->player.pos_x += game->player.dir_x * 0.02;
+		game->player.pos_y += game->player.dir_y * 0.02;
 	}
 }
 
 void	move_right(t_game *game)
 {
-	float	tmp_x;
-	float	tmp_y;
+	int	tmp_x;
+	int	tmp_y;
 
-	tmp_x = game->player.pos_x;
-	tmp_y = game->player.pos_y;
-	game->player.pos_x += game->player.dir_y * 0.02;
-	game->player.pos_y -= game->player.dir_x * 0.02;
-	if (!check_move(game))
+	tmp_x = game->player.pos_x + game->player.dir_y * 0.2;
+	tmp_y = game->player.pos_y - game->player.dir_x * 0.2;
+	if (check_move(game, tmp_x, tmp_y))
 	{
-		game->player.pos_x = tmp_x;
-		game->player.pos_y = tmp_y;
+		game->player.pos_x += game->player.dir_y * 0.02;
+		game->player.pos_y -= game->player.dir_x * 0.02;
 	}
 }
 
 void	move_left(t_game *game)
 {
-	float	tmp_x;
-	float	tmp_y;
+	int	tmp_x;
+	int	tmp_y;
 
-	tmp_x = game->player.pos_x;
-	tmp_y = game->player.pos_y;
-	game->player.pos_x -= game->player.dir_y * 0.02;
-	game->player.pos_y += game->player.dir_x * 0.02;
-	if (!check_move(game))
+	tmp_x = game->player.pos_x - game->player.dir_y * 0.2;
+	tmp_y = game->player.pos_y + game->player.dir_x * 0.2;
+	if (check_move(game, tmp_x, tmp_y))
 	{
-		game->player.pos_x = tmp_x;
-		game->player.pos_y = tmp_y;
+		game->player.pos_x -= game->player.dir_y * 0.02;
+		game->player.pos_y += game->player.dir_x * 0.02;
 	}
 }
 
 void	move_down(t_game *game)
 {
-	float	tmp_x;
-	float	tmp_y;
+	int	tmp_x;
+	int	tmp_y;
 
-	tmp_x = game->player.pos_x;
-	tmp_y = game->player.pos_y;
-	game->player.pos_x -= game->player.dir_x * 0.04;
-	game->player.pos_y -= game->player.dir_y * 0.04;
-	if (!check_move(game))
+	tmp_x = game->player.pos_x - game->player.dir_x * 0.2;
+	tmp_y = game->player.pos_y - game->player.dir_y * 0.2;
+	if (check_move(game, tmp_x, tmp_y))
 	{
-		game->player.pos_x = tmp_x;
-		game->player.pos_y = tmp_y;
+		game->player.pos_x -= game->player.dir_x * 0.02;
+		game->player.pos_y -= game->player.dir_y * 0.02;
 	}
 }
 

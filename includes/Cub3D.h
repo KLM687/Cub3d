@@ -160,7 +160,6 @@ int				create_rgb(int r, int g, int b);
 int				input(int key, t_game *game);
 void			parse_wall(t_game *game);
 bool			parse_element(t_game *game);
-bool			check_move(t_game *game);
 void			verline(t_game *game, int x, int sky);
 void			ray_draw(t_game *game);
 void			ray_hit(t_game *game);
@@ -183,5 +182,6 @@ void			move_down(t_game *game);
 void			rotate_right(t_game *game);
 void			rotate_left(t_game *game);
 int				input(int key, t_game *game);
+bool			check_move(t_game *game, float tmp_x, float tmp_y);
 
 #endif
