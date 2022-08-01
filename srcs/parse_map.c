@@ -89,15 +89,17 @@ bool	parse_texture(t_game *game)
 	{
 		if (search_id(game, game->map.map[i]))
 			ctrl++;
-		if (search_bck(game, game->map.map[i]))
+		else if (search_bck(game, game->map.map[i]))
 			ctrl++;
+		else if (!line_is_empty2(game->map.map[i]))
+			return (0);
 		i++;
 	}
 	if (ctrl != 7 || i == ft_size(game->map.map))
 		return (0);
 	while (line_is_empty(game->map.map[i]) && (i + 1) < ft_size(game->map.map))
 		i++;
-	if ((ft_size(game->map.map) != i))
+	if (ft_size(game->map.map) != (i + 1))
 	{
 		game->map.map = ft_popTab(game->map.map, i);
 		return (1);

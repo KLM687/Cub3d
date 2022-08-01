@@ -25,3 +25,17 @@ bool	check_void(t_game *game)
 		return (0);
 	return (1);
 }
+
+bool	line_is_empty2(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != 32 && !(str[i] >= 9 && str[i] <= 13) && str[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}

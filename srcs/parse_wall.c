@@ -12,7 +12,7 @@
 
 #include "Cub3D.h"
 
-//  ??
+// check if the 0 is near to void
 bool	wall(char **map, int x, int y)
 {
 	if (map[x + 1][y] == ' ' || map[x - 1][y] == ' ' ||
