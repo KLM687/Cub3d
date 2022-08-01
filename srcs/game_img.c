@@ -35,7 +35,7 @@ void	check_img(t_game *game)
 {
 	if (!game->north.img || !game->east.img)
 		clean_img(game);
-	if (!game->south.img || !game->west.img || !game->windows.img)
+	else if (!game->south.img || !game->west.img || !game->windows.img)
 		clean_img(game);
 }
 

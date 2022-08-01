@@ -34,7 +34,7 @@ void	clean_img(t_game *game)
 	ft_putendl_fd("Error", 2);
 	printf("Problem in texture path !\n");
 	if (game->north.img)
-		mlx_destroy_image(game->mlx.mlx, game->south.img);
+		mlx_destroy_image(game->mlx.mlx, game->north.img);
 	if (game->south.img)
 		mlx_destroy_image(game->mlx.mlx, game->south.img);
 	if (game->west.img)

@@ -6,7 +6,7 @@
 #    By: abensett <abensett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 19:20:13 by flee              #+#    #+#              #
-#    Updated: 2022/06/07 21:21:42 by abensett         ###   ########.fr        #
+#    Updated: 2022/08/01 09:07:57 by flee             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ HEAD			=	-I includes -I libft -I mlx
 
 CC				=	clang
 
-CFLAGS			=	-Wall -Werror -Wextra -O3
+CFLAGS			=	-Wall -Werror -Wextra
 
 .c.o			:
 					${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}

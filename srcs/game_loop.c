@@ -32,7 +32,7 @@ void	game_loop(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
 	game->mlx.windows = mlx_new_window(game->mlx.mlx,
-			WINDOWS_X, WINDOWS_Y, "Xub3d");
+			WINDOWS_X, WINDOWS_Y, "Cub3d");
 	open_img(game);
 	mlx_loop_hook(game->mlx.mlx, &render_next_frame, game);
 	mlx_hook(game->mlx.windows, 2, 1L << 0, input, game);
