@@ -60,17 +60,21 @@ int	search_id(t_game *game, char *str)
 	line = ft_split(str, ' ');
 	if ((ft_size(line)) != 2)
 		return ((ft_free_tab(line)), (0));
-	if (ft_strncmp(line[0], "N", ft_strlen(line[0])) == 0
-		|| ft_strncmp(line[0], "NO", ft_strlen(line[0])) == 0)
+	if ((ft_strncmp(line[0], "N", ft_strlen(line[0])) == 0
+			|| ft_strncmp(line[0], "NO", ft_strlen(line[0])) == 0)
+		&& !game->texture.north)
 		game->texture.north = ft_strdup(line[1]);
-	else if (ft_strncmp(line[0], "S", ft_strlen(line[0])) == 0
-		|| ft_strncmp(line[0], "SO", ft_strlen(line[0])) == 0)
+	else if ((ft_strncmp(line[0], "S", ft_strlen(line[0])) == 0
+			|| ft_strncmp(line[0], "SO", ft_strlen(line[0])) == 0)
+		&& !game->texture.south)
 		game->texture.south = ft_strdup(line[1]);
-	else if (ft_strncmp(line[0], "W", ft_strlen(line[0])) == 0
-		|| ft_strncmp(line[0], "WE", ft_strlen(line[0])) == 0)
+	else if ((ft_strncmp(line[0], "W", ft_strlen(line[0])) == 0
+			|| ft_strncmp(line[0], "WE", ft_strlen(line[0])) == 0)
+		&& !game->texture.west)
 		game->texture.west = ft_strdup(line[1]);
-	else if (ft_strncmp(line[0], "E", ft_strlen(line[0])) == 0
-		|| ft_strncmp(line[0], "EA", ft_strlen(line[0])) == 0)
+	else if ((ft_strncmp(line[0], "E", ft_strlen(line[0])) == 0
+			|| ft_strncmp(line[0], "EA", ft_strlen(line[0])) == 0)
+		&& !game->texture.east)
 		game->texture.east = ft_strdup(line[1]);
 	else
 		return ((ft_free_tab(line)), (0));
