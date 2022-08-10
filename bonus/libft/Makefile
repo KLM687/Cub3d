@@ -50,7 +50,7 @@ SRC =	ft_atoi.c \
 		ft_size.c \
 		get_next_line.c \
 		get_next_line_utils.c \
-		ft_popTab.c
+		ft_poptab.c
 
 
 SRCBONUS =	ft_lstnew.c \

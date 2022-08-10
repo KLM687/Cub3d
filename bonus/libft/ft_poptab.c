@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_popTab.c                                        :+:      :+:    :+:   */
+/*   ft_poptab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flee <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**ft_popTab(char **tab, int i)
+char	**ft_poptab(char **tab, int i)
 {
 	int 	size;
 	char	**pop;

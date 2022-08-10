@@ -98,7 +98,7 @@ bool	parse_texture(t_game *game)
 		i++;
 	if ((ft_size(game->map.map) != i))
 	{
-		game->map.map = ft_popTab(game->map.map, i);
+		game->map.map = ft_poptab(game->map.map, i);
 		return (1);
 	}
 	return (0);
